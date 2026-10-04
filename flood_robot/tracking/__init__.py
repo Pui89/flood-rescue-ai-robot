@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 
 import numpy as np
@@ -19,13 +21,14 @@ class TrackedObject:
 
 
 class CustomObjectTracker:
-    def __init__(self, max_age: int = 8, distance_threshold: float = 35.0):
+    def __init__(self, max_age: int = 8, distance_threshold: float = 35.0) -> None:
         self.max_age = max_age
         self.distance_threshold = distance_threshold
         self.tracks: list[TrackedObject] = []
         self.next_id = 1
 
-    def _centroid(self, bbox: tuple[float, float, float, float]) -> tuple[float, float]:
+    @staticmethod
+    def _centroid(bbox: tuple[float, float, float, float]) -> tuple[float, float]:
         x1, y1, x2, y2 = bbox
         return ((x1 + x2) / 2.0, (y1 + y2) / 2.0)
 
@@ -38,11 +41,8 @@ class CustomObjectTracker:
 
         current_centroids = [self._centroid(det) for det in detections]
         assigned = np.zeros(len(detections), dtype=bool)
-        active_tracks = list(self.tracks)
 
-        for track_index, track in enumerate(active_tracks):
-            if not current_centroids:
-                break
+        for track in self.tracks:
             best_index = None
             best_distance = np.inf
             for det_index, centroid in enumerate(current_centroids):
@@ -57,14 +57,20 @@ class CustomObjectTracker:
                 track.update(detections[best_index], current_centroids[best_index])
                 assigned[best_index] = True
 
-        # Create new tracks for unmatched detections.
         for det_index, det in enumerate(detections):
             if assigned[det_index]:
                 continue
-            self.tracks.append(TrackedObject(self.next_id, det, self._centroid(det), age=1, hits=1))
+            self.tracks.append(
+                TrackedObject(
+                    track_id=self.next_id,
+                    bbox=det,
+                    centroid=self._centroid(det),
+                    age=1,
+                    hits=1,
+                )
+            )
             self.next_id += 1
 
-        # Age stale tracks.
         survivors = []
         for track in self.tracks:
             track.age += 1

@@ -1,47 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0" x2="1">
-      <stop offset="0%" stop-color="#0b1220"/>
-      <stop offset="100%" stop-color="#101d2d"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0" x2="1">
-      <stop offset="0%" stop-color="#4ecdc4"/>
-      <stop offset="100%" stop-color="#45b7d1"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="700" fill="url(#bg)"/>
+import numpy as np
 
-  <text x="600" y="60" text-anchor="middle" font-size="30" fill="#e6f2ff" font-family="sans-serif">Flood Rescue AI Robot</text>
+from flood_robot.config import SystemConfig
+from flood_robot.pipeline.rescue_pipeline import FloodRescuePipeline
 
-  <rect x="110" y="120" width="200" height="120" rx="18" fill="#1e2d3d" stroke="#4ecdc4"/>
-  <text x="210" y="155" text-anchor="middle" font-size="20" fill="#e6f2ff" font-family="sans-serif">RGB Camera</text>
-  <text x="210" y="185" text-anchor="middle" font-size="16" fill="#9dc2ff" font-family="sans-serif">Video stream</text>
 
-  <rect x="370" y="120" width="220" height="120" rx="18" fill="#1e2d3d" stroke="#4ecdc4"/>
-  <text x="480" y="155" text-anchor="middle" font-size="20" fill="#e6f2ff" font-family="sans-serif">Depth Estimator</text>
-  <text x="480" y="185" text-anchor="middle" font-size="16" fill="#9dc2ff" font-family="sans-serif">PyTorch CNN</text>
+def test_basic_pipeline() -> None:
+    pipeline = FloodRescuePipeline(SystemConfig())
+    frame = np.zeros((480, 640, 3), dtype=np.uint8)
+    result = pipeline.process_frame(frame, detections=[(80, 200, 120, 280)])
+    assert "depth_map" in result
+    assert "tracked_objects" in result
+    assert "hazard_score" in result
 
-  <rect x="650" y="120" width="220" height="120" rx="18" fill="#1e2d3d" stroke="#4ecdc4"/>
-  <text x="760" y="155" text-anchor="middle" font-size="20" fill="#e6f2ff" font-family="sans-serif">Object Tracker</text>
-  <text x="760" y="185" text-anchor="middle" font-size="16" fill="#9dc2ff" font-family="sans-serif">Victims + debris</text>
 
-  <rect x="920" y="120" width="200" height="120" rx="18" fill="#1e2d3d" stroke="#4ecdc4"/>
-  <text x="1020" y="155" text-anchor="middle" font-size="20" fill="#e6f2ff" font-family="sans-serif">Spatial Risk</text>
-  <text x="1020" y="185" text-anchor="middle" font-size="16" fill="#9dc2ff" font-family="sans-serif">Hazard map</text>
-
-  <path d="M310 180 H370" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-  <path d="M590 180 H650" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-  <path d="M870 180 H920" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-
-  <rect x="300" y="350" width="600" height="170" rx="22" fill="#132233" stroke="#59d5c2"/>
-  <text x="600" y="395" text-anchor="middle" font-size="28" fill="#e6f2ff" font-family="sans-serif">Autonomous rescue policy</text>
-  <text x="600" y="435" text-anchor="middle" font-size="18" fill="#9dc2ff" font-family="sans-serif">Route planning + person prioritization + safe navigation</text>
-  <text x="600" y="470" text-anchor="middle" font-size="18" fill="#9dc2ff" font-family="sans-serif">Depth + risk map + tracked entities</text>
-
-  <path d="M480 240 V350" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-  <path d="M760 240 V350" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-  <path d="M1020 240 V350" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-  <path d="M600 520 V610 H1000 V610" stroke="#4ecdc4" stroke-width="4" fill="none"/>
-  <text x="600" y="610" text-anchor="middle" font-size="20" fill="#e6f2ff" font-family="sans-serif">Robot action layer</text>
-</svg>
+if __name__ == "__main__":
+    test_basic_pipeline()
+    print("Pipeline smoke test passed.")

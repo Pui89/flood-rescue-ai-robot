@@ -1,17 +1,19 @@
+from __future__ import annotations
+
 import imageio.v3 as iio
 import numpy as np
 from PIL import Image, ImageDraw
 
 
 class DemoVideoRenderer:
-    def __init__(self, fps: int = 8):
+    def __init__(self, fps: int = 8) -> None:
         self.fps = fps
 
     @staticmethod
     def _annotate_frame(frame: np.ndarray, label: str = "Flood Rescue") -> np.ndarray:
         image = Image.fromarray(frame).convert("RGB")
         draw = ImageDraw.Draw(image)
-        draw.rectangle((20, 20, 200, 70), fill=(20, 20, 20, 200))
+        draw.rectangle((20, 20, 220, 70), fill=(20, 20, 20, 200))
         draw.text((30, 30), label, fill=(255, 255, 255))
         return np.array(image)
 

@@ -5,9 +5,22 @@ from torch import nn
 
 
 class ConvBlock(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, kernel_size: int = 3, stride: int = 1, padding: int = 1):
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int = 3,
+        stride: int = 1,
+        padding: int = 1,
+    ) -> None:
         super().__init__()
-        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=padding)
+        self.conv = nn.Conv2d(
+            in_channels,
+            out_channels,
+            kernel_size=kernel_size,
+            stride=stride,
+            padding=padding,
+        )
         self.norm = nn.BatchNorm2d(out_channels)
         self.activation = nn.ReLU(inplace=True)
 
@@ -16,7 +29,7 @@ class ConvBlock(nn.Module):
 
 
 class DepthEstimator(nn.Module):
-    def __init__(self, in_channels: int = 3, base_channels: int = 32):
+    def __init__(self, in_channels: int = 3, base_channels: int = 32) -> None:
         super().__init__()
         self.encoder = nn.Sequential(
             ConvBlock(in_channels, base_channels, 3, 1, 1),
