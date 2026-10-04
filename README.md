@@ -1,10 +1,10 @@
 # Flood Rescue AI Robot
 
-A PyTorch-based autonomous perception system for flood rescue operations. The project combines a custom depth-estimation model, multi-object tracking, spatial risk extraction, and deployment-oriented visualization for search-and-rescue scenarios in waterlogged and debris-heavy environments.
+A PyTorch-based autonomous perception system for flood rescue operations. The repository combines a custom depth-estimation model, multi-object tracking, spatial hazard extraction, and an end-to-end robot perception pipeline.
 
 ## Overview
 
-Flood rescue requires robots to perceive unstable terrain, detect victims, avoid obstacles, and prioritize safe navigation under poor visual conditions. This repo models that pipeline in a modular, object-oriented way.
+Flood rescue requires robots to perceive unstable terrain, detect victims, avoid obstacles, and prioritize safe navigation under poor visual conditions. This project models that pipeline in a modular, deployable way.
 
 ## Robot concept
 
@@ -12,14 +12,9 @@ Flood rescue requires robots to perceive unstable terrain, detect victims, avoid
 
 ![Realistic flood rescue robot concept](docs/robot_concept_realistic.svg)
 
-## Core problem
+## Real-time upgrade
 
-- victims may be partially submerged,
-- floodwater and debris reduce scene clarity,
-- rescue paths can collapse or become blocked,
-- real-time perception must balance speed, safety, and accuracy.
-
-The project addresses this with a perception stack that estimates depth, tracks objects, and extracts a hazard map for rescue prioritization.
+The system now supports live processing in real time from a webcam or RTSP stream. The pipeline estimates depth per frame, tracks detected objects, builds a hazard map, and overlays the result in a live OpenCV window.
 
 ## Architecture
 
@@ -36,37 +31,6 @@ flowchart TD
     H --> I[Safe navigation and victim assistance]
 ```
 
-## Repository structure
-
-```text
-flood-rescue-ai-robot/
-├── README.md
-├── pyproject.toml
-├── requirements.txt
-├── docs/
-│   ├── architecture.svg
-│   ├── robot_concept.svg
-│   └── robot_concept_realistic.svg
-├── flood_robot/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── data/
-│   ├── models/
-│   ├── tracking/
-│   ├── spatial/
-│   ├── pipeline/
-│   ├── visualization/
-│   └── utils/
-├── scripts/
-│   ├── run_demo.py
-│   └── train_depth.py
-├── tests/
-│   └── test_tracker.py
-├── demo_output/
-│   └── flood_scene.gif
-└── .gitignore
-```
-
 ## Installation
 
 ```bash
@@ -80,13 +44,19 @@ pip install -e .
 
 ## Usage
 
-Run the synthetic demo:
+Run the live real-time demo from a webcam:
 
 ```bash
-python scripts/run_demo.py
+python scripts/run_demo.py --source 0 --display
 ```
 
-Run the training scaffold:
+Run from an RTSP stream:
+
+```bash
+python scripts/run_demo.py --source "rtsp://username:password@ip:554/stream"
+```
+
+Run the synthetic demo:
 
 ```bash
 python scripts/train_depth.py --epochs 20 --batch-size 8 --device cuda
@@ -100,32 +70,13 @@ pytest tests/test_tracker.py -q
 
 ## Performance notes
 
-Representative engineering benchmarks for the synthetic flood benchmark included in this project:
+Representative synthetic engineering benchmarks for the project include:
 
 - Depth model: ~24 FPS on RTX 4090, ~12 FPS on RTX 3060 at 640x480
 - Tracker: ~1.8 ms per frame
 - Spatial hazard extraction: ~6.5 ms per frame
 - Depth MAE: ~0.13 depth units
 - Tracking MOTA: ~0.88
-
-## Why this project is strong
-
-This repository goes beyond basic tutorials by including:
-
-- custom PyTorch model code,
-- object-oriented pipeline design,
-- multi-object tracking logic,
-- spatial hazard extraction,
-- reproducible runtime scripts,
-- documentation and visuals suitable for technical review.
-
-## Future extensions
-
-- real flood dataset integration,
-- YOLO/DETR detection,
-- ROS or robot control interface,
-- real depth sensors and stereo fusion,
-- autonomous path planning with risk-aware navigation.
 
 ## License
 
