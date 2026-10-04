@@ -21,7 +21,6 @@ class SpatialFeatureExtractor:
             raise ValueError("depth_map must be a 2D or 3D tensor.")
 
         h, w = depth_map.shape[-2:]
-        risk_map = torch.zeros_like(depth_map)
         center_y = torch.linspace(0.0, 1.0, h, device=device).view(-1, 1).expand(-1, w)
         danger_prior = 1.0 - center_y
         risk_map = depth_map * (0.2 + 0.8 * danger_prior)
