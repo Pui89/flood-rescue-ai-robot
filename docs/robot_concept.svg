@@ -1,0 +1,88 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0%" stop-color="#dfeef7"/>
+      <stop offset="100%" stop-color="#bfe4ef"/>
+    </linearGradient>
+    <linearGradient id="robotBody" x1="0" x2="1">
+      <stop offset="0%" stop-color="#2d3b4f"/>
+      <stop offset="100%" stop-color="#161f2f"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" x2="1">
+      <stop offset="0%" stop-color="#6ec7f7"/>
+      <stop offset="100%" stop-color="#2d84c6"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#1f2f3f" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+
+  <!-- Water surface -->
+  <path d="M0 610 C180 580, 300 650, 500 610 S860 540, 1200 610 L1200 800 L0 800 Z" fill="url(#water)" opacity="0.9"/>
+  <path d="M0 660 C210 630, 330 690, 520 655 S870 620, 1200 680" stroke="#d9f3ff" stroke-width="3" fill="none" opacity="0.7"/>
+
+  <!-- Robot -->
+  <g filter="url(#shadow)">
+    <!-- Body -->
+    <rect x="410" y="260" width="380" height="180" rx="32" fill="url(#robotBody)"/>
+
+    <!-- Top module -->
+    <rect x="500" y="150" width="200" height="110" rx="24" fill="#2d4d66"/>
+    <rect x="535" y="185" width="130" height="40" rx="12" fill="#7fdcff" opacity="0.9"/>
+    <circle cx="600" cy="165" r="26" fill="#9be7ff"/>
+    <circle cx="600" cy="165" r="10" fill="#1d2f3f"/>
+
+    <!-- Camera / sensor mast -->
+    <rect x="560" y="90" width="80" height="60" rx="14" fill="#22364a"/>
+    <circle cx="600" cy="103" r="17" fill="#dff7ff"/>
+    <circle cx="600" cy="103" r="8" fill="#203247"/>
+
+    <!-- Left and right side float modules -->
+    <rect x="430" y="345" width="55" height="95" rx="18" fill="#45b2d1"/>
+    <rect x="715" y="345" width="55" height="95" rx="18" fill="#45b2d1"/>
+
+    <!-- Arm / rescue tool -->
+    <rect x="815" y="300" width="90" height="22" rx="10" fill="#455a73"/>
+    <rect x="895" y="290" width="70" height="18" rx="9" fill="#40556b"/>
+    <circle cx="965" cy="299" r="18" fill="#8fe4ff"/>
+
+    <!-- Tracks / wheels -->
+    <g>
+      <rect x="460" y="435" width="110" height="24" rx="12" fill="#4b5d71"/>
+      <rect x="630" y="435" width="110" height="24" rx="12" fill="#4b5d71"/>
+      <circle cx="475" cy="470" r="28" fill="#111b2a"/>
+      <circle cx="690" cy="470" r="28" fill="#111b2a"/>
+      <circle cx="570" cy="470" r="28" fill="#111b2a"/>
+      <circle cx="620" cy="470" r="28" fill="#111b2a"/>
+    </g>
+
+    <!-- Search lights -->
+    <rect x="455" y="220" width="40" height="18" rx="9" fill="#dff7ff"/>
+    <rect x="705" y="220" width="40" height="18" rx="9" fill="#dff7ff"/>
+
+    <!-- Human victim marker -->
+    <g transform="translate(260 280)">
+      <circle cx="0" cy="30" r="18" fill="#ffdf8c"/>
+      <rect x="-12" y="45" width="24" height="42" rx="10" fill="#f5f7ff"/>
+      <rect x="-28" y="50" width="16" height="42" rx="8" fill="#f5f7ff"/>
+      <rect x="12" y="50" width="16" height="42" rx="8" fill="#f5f7ff"/>
+      <rect x="-18" y="90" width="15" height="34" rx="8" fill="#f5f7ff"/>
+      <rect x="3" y="90" width="15" height="34" rx="8" fill="#f5f7ff"/>
+      <circle cx="-6" cy="18" r="6" fill="#ff6b6b"/>
+    </g>
+
+    <!-- Debris / hazard markers -->
+    <g transform="translate(830 500)">
+      <rect x="0" y="0" width="60" height="42" rx="8" fill="#a9b8c7"/>
+      <rect x="18" y="-18" width="18" height="20" rx="5" fill="#94a9bb"/>
+    </g>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="Arial, sans-serif" fill="#1f2b3a">
+    <text x="600" y="665" text-anchor="middle" font-size="28" font-weight="700">Flood Rescue Robot</text>
+    <text x="600" y="700" text-anchor="middle" font-size="18">Depth + tracking + risk-aware autonomy</text>
+  </g>
+</svg>
