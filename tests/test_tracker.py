@@ -1,0 +1,17 @@
+from flood_robot.pipeline.rescue_pipeline import FloodRescuePipeline
+from flood_robot.config import SystemConfig
+
+
+def test_basic_pipeline() -> None:
+    pipeline = FloodRescuePipeline(SystemConfig())
+    frame = np.zeros((480, 640, 3), dtype=np.uint8)
+    result = pipeline.process_frame(frame, detections=[(80, 200, 120, 280)])
+    assert "depth_map" in result
+    assert "tracked_objects" in result
+    assert "hazard_score" in result
+
+
+if __name__ == "__main__":
+    import numpy as np
+    test_basic_pipeline()
+    print("Pipeline smoke test passed.")
