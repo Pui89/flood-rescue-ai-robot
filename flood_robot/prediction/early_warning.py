@@ -11,7 +11,7 @@ class Forecast:
     evidence: dict[str, Any] = field(default_factory=dict)
 
 class EarlyWarningEngine:
-    '''Conservative temporal warning layer. A learned predictor can be injected.''''
+    '''Conservative temporal warning layer. A learned predictor can be injected.'''
     def __init__(self, predictor=None, lookahead_seconds=5.0):
         self.predictor = predictor
         self.lookahead_seconds = lookahead_seconds
