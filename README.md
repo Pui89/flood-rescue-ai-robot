@@ -81,3 +81,20 @@ Representative synthetic engineering benchmarks for the project include:
 ## License
 
 MIT
+
+## Embodied AI upgrade
+
+The realtime branch now includes an extensible embodied-AI stack for difficult flood scenes.
+
+- YOLO for fast detection and tracking.
+- SAM 3 for open-vocabulary segmentation, occlusion boundaries and video tracking.
+- Qwen3-VL for large-vision image, video and spatial reasoning.
+- LeRobot with SmolVLA, pi0/pi0.5, X-VLA and VLA-JEPA as large action/VLA candidates.
+- V-JEPA2/VLA-JEPA for temporal world-model reasoning.
+- RGB-D + LiDAR + Open3D for 3D semantic mapping.
+- Thermal + NIR + depth/LiDAR for darkness and low-visibility perception.
+- Isaac Sim + Isaac Lab for realistic 3D robot simulation, synthetic video and sim-to-real testing.
+- Early warning for occlusion, unseen areas, unknown objects, collision, debris impact, route blockage and drowning/submersion risk.
+- Deterministic safety gates prevent foundation models from directly commanding motors.
+
+See docs/EMBODIED_AI_STACK.md, config/ai_stack.yaml and config/safety_forecasting.yaml.
