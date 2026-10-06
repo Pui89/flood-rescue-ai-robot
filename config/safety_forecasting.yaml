@@ -1,0 +1,31 @@
+# Conservative engineering defaults; validate before real deployment.
+safety:
+  min_detection_confidence: 0.50
+  min_action_confidence: 0.70
+  min_world_model_confidence: 0.65
+  human_exclusion_radius_m: 3.0
+  animal_exclusion_radius_m: 2.0
+  unknown_object_buffer_m: 2.5
+  max_linear_velocity_mps: 0.50
+  max_angular_velocity_rps: 0.60
+  emergency_stop_on: [collision_prediction_high, human_too_close, depth_sensor_failure, lidar_failure, localization_loss, actuator_fault]
+uncertainty:
+  require_sensor_agreement: true
+  max_prediction_disagreement: 0.25
+  treat_unseen_as_unknown: true
+  never_infer_human_absence_from_missing_detection: true
+forecast:
+  warning_probability: 0.55
+  critical_probability: 0.75
+  emergency_probability: 0.90
+  lookahead_seconds: 5
+night:
+  enable_thermal: true
+  enable_nir: true
+  require_depth_or_lidar: true
+  speed_multiplier: 0.50
+action_policy:
+  vla_can_propose_action: true
+  vla_can_bypass_safety_gate: false
+  direct_motor_control_by_foundation_model: false
+  require_post_action_verification: true

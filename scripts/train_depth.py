@@ -1,32 +1,34 @@
-import numpy as np
+import argparse
 
 from flood_robot.config import SystemConfig
+from flood_robot.data.synthetic_scene import SyntheticFloodSceneGenerator
+from flood_robot.models.depth_estimator import DepthEstimator
 from flood_robot.pipeline.rescue_pipeline import FloodRescuePipeline
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Create a synthetic flood depth training scaffold")
+    parser.add_argument("--epochs", type=int, default=20)
+    parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--device", type=str, default="cuda")
+    return parser.parse_args()
+
+
 def main() -> None:
-    config = SystemConfig()
+    args = parse_args()
+    config = SystemConfig(model_device=args.device)
+    generator = SyntheticFloodSceneGenerator(width=config.image_size[1], height=config.image_size[0])
+    model = DepthEstimator(in_channels=3, base_channels=config.base_channels)
     pipeline = FloodRescuePipeline(config)
 
-    height, width = config.image_size
-    frame = np.zeros((height, width, 3), dtype=np.uint8)
-    frame[:, :, 0] = 80
-    frame[:, :, 1] = 130
-    frame[:, :, 2] = 180
+    frame = generator.generate_frame(frame_index=0)
+    result = pipeline.process_frame(frame, detections=generator.generate_detections(frame_index=0))
 
-    for x in range(0, width, 80):
-        frame[:, x : x + 10, :] = np.array([0, 120, 160], dtype=np.uint8)
-
-    object_boxes = [
-        (120, 220, 160, 310),
-        (250, 180, 300, 280),
-        (420, 240, 470, 330),
-    ]
-
-    results = pipeline.process_frame(frame, detections=object_boxes)
-    print(f"Depth shape: {results['depth_map'].shape}")
-    print(f"Hazard score: {results['hazard_score']:.4f}")
-    print(f"Tracked object count: {len(results['tracked_objects'])}")
+    print(f"Synthetic scene generator ready: {generator.width}x{generator.height}")
+    print(f"Depth estimator created: {model.__class__.__name__}")
+    print(f"Requested training config: epochs={args.epochs}, batch_size={args.batch_size}, device={args.device}")
+    print(f"Estimated hazard score: {result['hazard_score']:.4f}")
+    print("This project includes a training scaffold and can be extended to a real flood dataset.")
 
 
 if __name__ == "__main__":
