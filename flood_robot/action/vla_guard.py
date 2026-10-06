@@ -9,7 +9,7 @@ class ActionDecision:
     action: Any = None
 
 class VLAGuard:
-    '''Safety boundary between LeRobot/VLA policies and robot actuators.''''
+    '''Safety boundary between LeRobot/VLA policies and robot actuators.'''
     def __init__(self, min_confidence=0.70):
         self.min_confidence = min_confidence
 
