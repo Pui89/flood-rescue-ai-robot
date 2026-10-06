@@ -1,5 +1,5 @@
 # Flood Rescue Embodied AI stack
-version: 1
+version: 2
 perception:
   detector:
     framework: yolo
@@ -10,8 +10,9 @@ perception:
     video_tracking: true
     open_vocabulary: true
 vision_reasoning:
-  model: Qwen3-VL
-  tasks: [scene_reasoning, video_reasoning, spatial_reasoning, occlusion_analysis, unknown_object_analysis]
+  primary_model: Qwen3-VL
+  secondary_model: Gemma4-E4B-it
+  tasks: [scene_reasoning, video_reasoning, spatial_reasoning, occlusion_analysis, unknown_object_analysis, multimodal_cross_check]
   never_direct_motor_control: true
 world_model:
   sensors: [rgb, depth, lidar, imu, thermal, nir]
@@ -20,9 +21,10 @@ world_model:
   temporal_predictor: V_JEPA2_or_VLA_JEPA
 action_models:
   framework: LeRobot
-  candidates: [SmolVLA, pi0, pi0.5, X-VLA, VLA-JEPA]
+  candidates: [SmolVLA, pi0, pi0.5, X-VLA, VLA-JEPA, NVIDIA-GR00T-N1.7-3B, FLUX-3-Action-Base]
   output: candidate_actions
   never_direct_motor_control: true
+  embodiment_adaptation_required: true
 planning:
   navigation: ROS2_Nav2
   manipulation: MoveIt2
@@ -46,7 +48,13 @@ low_light:
 simulation:
   platform: NVIDIA_Isaac_Sim
   learning: NVIDIA_Isaac_Lab
+  generative_video: [LTX-2.5-Diffusers, MiniMax-H3-Turbo-LoRA]
   photorealistic_video: true
   synthetic_data: true
   domain_randomization: [weather, lighting, fog, rain, water_reflection, debris, occlusion, sensor_noise, robot_pose, camera_pose]
   ground_truth: [segmentation, depth, 3d_pose, trajectories, collision_events]
+safety:
+  reasoning_models_are_advisory: true
+  action_models_are_proposals: true
+  deterministic_gate_required: true
+  human_oversight_for_high_consequence_actions: true
