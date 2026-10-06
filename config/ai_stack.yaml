@@ -1,0 +1,52 @@
+# Flood Rescue Embodied AI stack
+version: 1
+perception:
+  detector:
+    framework: yolo
+    confidence_threshold: 0.50
+    classes: [person, child, animal, boat, vehicle, debris, floating_object, obstacle, robot]
+  segmentation:
+    model: sam3
+    video_tracking: true
+    open_vocabulary: true
+vision_reasoning:
+  model: Qwen3-VL
+  tasks: [scene_reasoning, video_reasoning, spatial_reasoning, occlusion_analysis, unknown_object_analysis]
+  never_direct_motor_control: true
+world_model:
+  sensors: [rgb, depth, lidar, imu, thermal, nir]
+  geometry: open3d
+  semantic_map: true
+  temporal_predictor: V_JEPA2_or_VLA_JEPA
+action_models:
+  framework: LeRobot
+  candidates: [SmolVLA, pi0, pi0.5, X-VLA, VLA-JEPA]
+  output: candidate_actions
+  never_direct_motor_control: true
+planning:
+  navigation: ROS2_Nav2
+  manipulation: MoveIt2
+  motion_planning: OMPL_RRTstar
+  collision_checking: required
+anomaly_detection:
+  environment: [person_falling, drowning_or_submersion_risk, debris_impact_risk, unstable_ground, blocked_route, abnormal_water_motion, unknown_object]
+  robot: [wheel_slip, excessive_tilt, actuator_overload, camera_blocked, depth_failure, lidar_failure, thermal_failure, low_battery, communication_loss]
+  ai: [low_detection_confidence, segmentation_failure, sensor_disagreement, out_of_distribution_scene, action_uncertainty]
+forecasting:
+  horizon_seconds: 5
+  events: [future_collision_risk, future_occlusion_risk, future_submersion_risk, route_blockage_risk]
+  warning_action: slow_and_replan
+  critical_action: safe_stop
+  emergency_action: emergency_stop_and_retract
+low_light:
+  primary: thermal
+  secondary: nir
+  geometry: lidar_and_depth
+  low_visibility_action: reduce_speed_and_increase_safety_margin
+simulation:
+  platform: NVIDIA_Isaac_Sim
+  learning: NVIDIA_Isaac_Lab
+  photorealistic_video: true
+  synthetic_data: true
+  domain_randomization: [weather, lighting, fog, rain, water_reflection, debris, occlusion, sensor_noise, robot_pose, camera_pose]
+  ground_truth: [segmentation, depth, 3d_pose, trajectories, collision_events]
