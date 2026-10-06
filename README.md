@@ -1,6 +1,6 @@
 # Flood Rescue AI Robot
 
-A PyTorch-based autonomous perception system for flood rescue operations. The repository combines a custom depth-estimation model, multi-object tracking, spatial hazard extraction, and an end-to-end robot perception pipeline.
+A PyTorch-based autonomous perception system for flood rescue operations. The repository combines depth estimation, multi-object tracking, spatial hazard extraction, embodied AI, multimodal reasoning, world modeling and safety-aware robot action planning.
 
 ## Overview
 
@@ -14,22 +14,34 @@ Flood rescue requires robots to perceive unstable terrain, detect victims, avoid
 
 ## Real-time upgrade
 
-The system now supports live processing in real time from a webcam or RTSP stream. The pipeline estimates depth per frame, tracks detected objects, builds a hazard map, and overlays the result in a live OpenCV window.
+The system supports live processing from a webcam or RTSP stream. The pipeline estimates depth per frame, tracks detected objects, builds a hazard map, and overlays the result in a live OpenCV window.
 
-## Architecture
+## Embodied AI architecture
 
-```mermaid
-flowchart TD
-    A[RGB camera / video stream] --> B[Preprocessing]
-    B --> C[Custom PyTorch depth model]
-    B --> D[Object tracking]
-    C --> E[3D spatial feature extraction]
-    D --> E
-    E --> F[Hazard / risk map]
-    F --> G[Rescue prioritization]
-    G --> H[Robot control layer]
-    H --> I[Safe navigation and victim assistance]
-```
+RGB / thermal / NIR / depth / LiDAR / IMU -> YOLO + SAM3 + tracking -> 3D semantic world model -> Qwen3-VL + Gemma 4 E4B reasoning -> V-JEPA2 future prediction -> GR00T N1.7 / FLUX 3 Action candidate actions -> deterministic safety gate -> ROS2/Nav2 + MoveIt2/RRT* -> robot -> action verification.
+
+### Models and roles
+
+- YOLO: fast detection and tracking.
+- SAM 3: open-vocabulary segmentation, occlusion boundaries and video tracking.
+- Qwen3-VL: primary multimodal scene and rescue reasoning.
+- Gemma 4 E4B-it: secondary multimodal reasoning and cross-check.
+- LeRobot: datasets, teleoperation, training and deployment.
+- SmolVLA, pi0/pi0.5, X-VLA, VLA-JEPA: action/VLA candidates.
+- NVIDIA GR00T N1.7 3B: embodied action-policy candidate for adaptation to the flood-robot embodiment.
+- FLUX 3 Action Base: world-action adaptation base; not a complete robot policy and requires an embodiment-specific action head.
+- V-JEPA2/VLA-JEPA: temporal world-model and future-state prediction.
+- LTX-2.5-Diffusers: offline synthetic video/audio scenario generation and visual diversity.
+- MiniMax H3 Turbo LoRA: offline synthetic audio-visual scenario generation and rare-event prototyping.
+- RGB-D + LiDAR + Open3D: 3D semantic mapping.
+- Thermal + NIR + depth/LiDAR: darkness and low-visibility perception.
+- Isaac Sim + Isaac Lab: realistic 3D robot simulation, synthetic data and sim-to-real testing.
+
+## Safety
+
+Foundation, generative and action models never bypass deterministic safety. Reasoning models propose priorities; action models propose candidate actions. Collision checking, human-exclusion zones, sensor-health checks, force/torque limits and emergency-stop logic remain authoritative.
+
+See docs/EMBODIED_AI_STACK.md, docs/ADVANCED_MODEL_INTEGRATION.md, config/ai_stack.yaml, config/advanced_models.yaml and config/safety_forecasting.yaml.
 
 ## Installation
 
@@ -56,45 +68,12 @@ Run from an RTSP stream:
 python scripts/run_demo.py --source "rtsp://username:password@ip:554/stream"
 ```
 
-Run the synthetic demo:
-
-```bash
-python scripts/train_depth.py --epochs 20 --batch-size 8 --device cuda
-```
-
 Run the smoke test:
 
 ```bash
 pytest tests/test_tracker.py -q
 ```
 
-## Performance notes
-
-Representative synthetic engineering benchmarks for the project include:
-
-- Depth model: ~24 FPS on RTX 4090, ~12 FPS on RTX 3060 at 640x480
-- Tracker: ~1.8 ms per frame
-- Spatial hazard extraction: ~6.5 ms per frame
-- Depth MAE: ~0.13 depth units
-- Tracking MOTA: ~0.88
-
 ## License
 
 MIT
-
-## Embodied AI upgrade
-
-The realtime branch now includes an extensible embodied-AI stack for difficult flood scenes.
-
-- YOLO for fast detection and tracking.
-- SAM 3 for open-vocabulary segmentation, occlusion boundaries and video tracking.
-- Qwen3-VL for large-vision image, video and spatial reasoning.
-- LeRobot with SmolVLA, pi0/pi0.5, X-VLA and VLA-JEPA as large action/VLA candidates.
-- V-JEPA2/VLA-JEPA for temporal world-model reasoning.
-- RGB-D + LiDAR + Open3D for 3D semantic mapping.
-- Thermal + NIR + depth/LiDAR for darkness and low-visibility perception.
-- Isaac Sim + Isaac Lab for realistic 3D robot simulation, synthetic video and sim-to-real testing.
-- Early warning for occlusion, unseen areas, unknown objects, collision, debris impact, route blockage and drowning/submersion risk.
-- Deterministic safety gates prevent foundation models from directly commanding motors.
-
-See docs/EMBODIED_AI_STACK.md, config/ai_stack.yaml and config/safety_forecasting.yaml.

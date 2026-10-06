@@ -1,0 +1,51 @@
+reasoning:
+  model: Qwen3-VL
+  role: high_level_rescue_reasoning
+  tasks:
+    - scene_understanding
+    - person_at_risk_analysis
+    - occlusion_and_unseen_analysis
+    - route_and_debris_reasoning
+    - low_light_reasoning
+    - multi_step_rescue_planning
+    - active_perception
+    - uncertainty_estimation
+  output: structured_decision
+  direct_motor_control: false
+  safety_gate_required: true
+  confidence_threshold: 0.70
+
+active_perception:
+  enabled: true
+  actions:
+    - pan_tilt_camera
+    - thermal_scan
+    - nir_scan
+    - depth_refresh
+    - lidar_refresh
+    - move_to_safe_viewpoint
+
+memory:
+  enabled: true
+  store:
+    - person_tracks
+    - hazard_history
+    - route_history
+    - sensor_failures
+    - intervention_history
+
+human_in_loop:
+  enabled: true
+  require_review_for:
+    - low_confidence_person_at_risk
+    - unknown_object_near_person
+    - severe_sensor_disagreement
+    - unsafe_recovery
+
+safety:
+  unseen_target_action: reobserve
+  occluded_target_action: reobserve
+  low_confidence_action: slow_and_replan
+  critical_action: safe_stop
+  emergency_action: emergency_stop
+  foundation_model_direct_motor_control: false
