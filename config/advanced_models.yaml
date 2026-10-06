@@ -1,0 +1,37 @@
+# Advanced multimodal, generative-video and robot-action models
+# Integration candidates; deterministic safety remains authoritative.
+version: 1
+reasoning:
+  primary: Qwen3-VL
+  secondary: Gemma4-E4B-it
+generative_simulation:
+  video_world_model:
+    model: LTX-2.5-Diffusers
+    source: Lightricks/LTX-2.5-Diffusers
+    roles: [flood_scenario_generation, night_rain_fog_generation, occlusion_and_debris_scenarios, sensor_failure_training_data, video_to_video_simulation_variants]
+    runtime_control: false
+  video_generation:
+    model: MiniMax-H3-Turbo-LoRA
+    source: Pepe104/MiniMax-H3-Turbo-LoRa-UNCENSORED
+    roles: [synthetic_rescue_video_generation, rare_event_data_generation, audio_visual_scenario_prototyping]
+    runtime_control: false
+    production_safety_review_required: true
+action_models:
+  robot_foundation:
+    model: NVIDIA-GR00T-N1.7-3B
+    source: nvidia/GR00T-N1.7-3B
+    roles: [embodied_action_policy, imitation_learning, robot_skill_transfer]
+    output: candidate_actions
+    safety_gate_required: true
+    direct_motor_control: false
+  world_action_base:
+    model: FLUX-3-Action-Base
+    source: black-forest-labs/flux-3-action-base
+    roles: [video_action_prediction, robot_state_conditioned_action_generation, embodiment_adaptation]
+    output: candidate_actions
+    requires_embodiment_head: true
+    safety_gate_required: true
+    direct_motor_control: false
+integration:
+  pipeline: "RGB/thermal/NIR/depth/LiDAR/IMU -> YOLO/SAM3/tracking -> 3D semantic world state -> Qwen3-VL/Gemma4 reasoning -> V-JEPA2 future prediction -> GR00T/FLUX3-Action candidate actions -> deterministic safety gate -> ROS2/Nav2/MoveIt2 -> robot"
+  synthetic_data_pipeline: "Isaac Sim/Isaac Lab + LTX-2.5 + MiniMax-H3 -> rare-event video/audio -> perception/reasoning/action datasets -> LeRobot evaluation"
