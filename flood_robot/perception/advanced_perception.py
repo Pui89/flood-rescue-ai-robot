@@ -13,7 +13,7 @@ class PerceptionState:
     confidence: float = 0.0
 
 class AdvancedPerception:
-    '''Optional adapter boundary for YOLO + SAM3 + Qwen3-VL.''''
+    '''Optional adapter boundary for YOLO + SAM3 + Qwen3-VL.'''
     def __init__(self, detector=None, segmenter=None, vision_model=None):
         self.detector = detector
         self.segmenter = segmenter
