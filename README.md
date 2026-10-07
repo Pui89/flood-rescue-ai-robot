@@ -1,8 +1,35 @@
 # Flood Rescue AI Robot
 
-A PyTorch-based autonomous perception system for flood rescue operations. The repository combines depth estimation, multi-object tracking, spatial hazard extraction, embodied AI, multimodal reasoning, world modeling and safety-aware robot action planning.
+A safety-aware multimodal perception and robotics platform for flood rescue operations. The repository combines depth estimation, multi-object tracking, spatial hazard extraction, embodied AI, multimodal reasoning, world modeling and safety-aware robot action planning.
 
 ## Overview
+
+## Professional Engineering Baseline
+
+This repository is being developed as a safety-aware multimodal flood-rescue robotics platform. The engineering boundary is:
+
+**AI proposes -> deterministic robotics validates -> safety system controls -> action is verified and logged.**
+
+Key professional layers now documented in the repository:
+
+- reproducible Python packaging with runtime, development and GPU dependency profiles;
+- CI/security hardening with linting, tests, coverage, dependency review, CodeQL and Dependabot;
+- sensor synchronization, calibration, health and provenance as first-class deployment requirements;
+- explicit uncertainty, OOD, abstention and human-review states;
+- 3D/4D world-model and evidence-provenance direction;
+- simulation-first validation and a flood-specific robustness scenario matrix;
+- deterministic collision, reachability, exclusion-zone and emergency-stop boundaries;
+- benchmark definitions covering perception, tracking, navigation, robustness, calibration and safety.
+
+See:
+
+- [Engineering roadmap](docs/ENGINEERING_ROADMAP.md)
+- [Safety architecture](docs/SAFETY_ARCHITECTURE.md)
+- [Evaluation benchmark](docs/EVALUATION_BENCHMARK.md)
+- [Simulation scenarios](docs/SIMULATION_SCENARIOS.md)
+
+**Implementation status:** prototype/research engineering. No capability is presented as field-validated unless repeatable measurements are available.
+
 
 Flood rescue requires robots to perceive unstable terrain, detect victims, avoid obstacles, and prioritize safe navigation under poor visual conditions. This project models that pipeline in a modular, deployable way.
 
