@@ -25,7 +25,8 @@ RGB / thermal / NIR / depth / LiDAR / IMU -> YOLO + SAM3 + tracking -> 3D semant
 - YOLO: fast detection and tracking.
 - SAM 3: open-vocabulary segmentation, occlusion boundaries and video tracking.
 - Qwen3-VL: primary multimodal scene and rescue reasoning.
-- Gemma 4 E4B-it: secondary multimodal reasoning and cross-check.
+- Gemma 4 31B IT: high-capacity multimodal flood-scene reasoning, victim verification, occlusion analysis, route/debris reasoning and rescue-plan cross-checking.
+- Gemma 4 E4B-it: lightweight fallback multimodal reasoning.
 - LeRobot: datasets, teleoperation, training and deployment.
 - SmolVLA, pi0/pi0.5, X-VLA, VLA-JEPA: action/VLA candidates.
 - NVIDIA GR00T N1.7 3B: embodied action-policy candidate for adaptation to the flood-robot embodiment.
@@ -36,6 +37,16 @@ RGB / thermal / NIR / depth / LiDAR / IMU -> YOLO + SAM3 + tracking -> 3D semant
 - RGB-D + LiDAR + Open3D: 3D semantic mapping.
 - Thermal + NIR + depth/LiDAR: darkness and low-visibility perception.
 - Isaac Sim + Isaac Lab: realistic 3D robot simulation, synthetic data and sim-to-real testing.
+
+## Gemma 4 31B IT multimodal reasoning
+
+The repository integrates [google/gemma-4-31B-it](https://huggingface.co/google/gemma-4-31B-it) as a multimodal reasoning model for flood-rescue scene interpretation. It accepts image + text inputs through Transformers and can also be served with vLLM. The model weights are downloaded at runtime and are not committed to this repository.
+
+Recommended flow:
+
+RGB / thermal / NIR / depth / LiDAR -> perception + tracking -> 3D semantic scene -> **Gemma 4 31B IT** -> structured rescue decision -> VLA/action candidates -> deterministic safety gate.
+
+Gemma 4 31B IT is advisory only: it cannot directly command motors, navigation actuators, or rescue mechanisms. Unknown or occluded people/objects must be re-observed, and every candidate action remains subject to collision checking, exclusion zones, sensor-health checks and emergency-stop logic.
 
 ## Safety
 
