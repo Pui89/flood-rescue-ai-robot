@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flood-rescue-ai-robot"
-version = "0.1.0"
-description = "AI flood-rescue robot with custom PyTorch depth estimation, object tracking, and spatial hazard forecasting"
+version = "0.2.0"
+description = "Safety-aware multimodal flood-rescue robotics platform"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -16,14 +16,26 @@ dependencies = [
   "matplotlib>=3.8.0",
   "pillow>=10.0.0",
   "transformers>=4.57.0",
-  "accelerate>=1.10.0"
+  "accelerate>=1.10.0",
+  "ultralytics>=8.4.0",
+  "huggingface-hub>=0.34.0"
 ]
 
 [project.optional-dependencies]
 dev = [
-  "pytest>=8.0.0"
+  "pytest>=8.0.0",
+  "pytest-cov>=5.0.0",
+  "ruff>=0.8.0"
 ]
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["flood_robot*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
