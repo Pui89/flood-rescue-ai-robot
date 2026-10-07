@@ -1,0 +1,10 @@
+torch>=2.2.0
+numpy>=1.24.0
+opencv-python-headless>=4.8.0
+imageio>=2.31.0
+matplotlib>=3.8.0
+pillow>=10.0.0
+transformers>=4.57.0
+accelerate>=1.10.0
+ultralytics>=8.4.0
+huggingface-hub>=0.34.0
