@@ -218,6 +218,10 @@ The architecture intentionally separates multimodal reasoning from authoritative
 
 Actual camera resolution, depth range, LiDAR density/FOV, thermal/NIR bands, FPS, calibration, synchronization and preprocessing depend on deployed hardware. Dataset and sensor provenance should be recorded for reproducibility.
 
+## YOLO26 Models & Training
+
+Integrated Ultralytics YOLO26 model matrix, flood-rescue dataset schema, training, validation, inference, export and robot integration workflow: [docs/YOLO26_MODELS_AND_TRAINING.md](docs/YOLO26_MODELS_AND_TRAINING.md).
+
 ## Model Architecture
 
 The system is organized into six functional layers:
