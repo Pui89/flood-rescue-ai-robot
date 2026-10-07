@@ -6,11 +6,15 @@ A PyTorch-based autonomous perception system for flood rescue operations. The re
 
 Flood rescue requires robots to perceive unstable terrain, detect victims, avoid obstacles, and prioritize safe navigation under poor visual conditions. This project models that pipeline in a modular, deployable way.
 
-## Robot concept
+## 3D Robot Concept
 
 ![Flood rescue robot concept](docs/robot_concept.svg)
 
-![Realistic flood rescue robot concept](docs/robot_concept_realistic.svg)
+![3D Flood Rescue AI Robot](docs/robot_concept_3d.svg)
+
+**Concept features:** amphibious flotation and thrusters, RGB-D/thermal/NIR/LiDAR perception, rescue manipulator, 3D semantic world modeling, multimodal AI reasoning, and a deterministic safety gate.
+
+See [docs/3D_ROBOT_CONCEPT.md](docs/3D_ROBOT_CONCEPT.md) for the design concept.
 
 ## Real-time upgrade
 
