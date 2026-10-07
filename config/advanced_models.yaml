@@ -3,7 +3,20 @@
 version: 1
 reasoning:
   primary: Qwen3-VL
-  secondary: Gemma4-E4B-it
+  secondary: Gemma-4-31B-it
+  tertiary: Gemma4-E4B-it
+  vision_language_reasoning:
+    name: Gemma-4-31B-it
+    source: google/gemma-4-31B-it
+    source_url: https://huggingface.co/google/gemma-4-31B-it
+    role: multimodal_flood_scene_reasoning_and_rescue_task_interpretation
+    runtime: transformers_or_vllm
+    input_modalities: [text, image]
+    output: structured_decision
+    uses: [victim_verification, flood_scene_reasoning, occlusion_analysis, debris_and_route_reasoning, low_visibility_reasoning, active_perception, rescue_plan_cross_check]
+    direct_motor_control: false
+    safety_gate_required: true
+    model_weights_bundled: false
 generative_simulation:
   video_world_model:
     model: LTX-2.5-Diffusers
@@ -33,5 +46,5 @@ action_models:
     safety_gate_required: true
     direct_motor_control: false
 integration:
-  pipeline: "RGB/thermal/NIR/depth/LiDAR/IMU -> YOLO/SAM3/tracking -> 3D semantic world state -> Qwen3-VL/Gemma4 reasoning -> V-JEPA2 future prediction -> GR00T/FLUX3-Action candidate actions -> deterministic safety gate -> ROS2/Nav2/MoveIt2 -> robot"
+  pipeline: "RGB/thermal/NIR/depth/LiDAR/IMU -> YOLO/SAM3/tracking -> 3D semantic world state -> Qwen3-VL/Gemma-4-31B-it reasoning -> V-JEPA2 future prediction -> GR00T/FLUX3-Action candidate actions -> deterministic safety gate -> ROS2/Nav2/MoveIt2 -> robot"
   synthetic_data_pipeline: "Isaac Sim/Isaac Lab + LTX-2.5 + MiniMax-H3 -> rare-event video/audio -> perception/reasoning/action datasets -> LeRobot evaluation"
