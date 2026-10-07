@@ -29,6 +29,24 @@ Uses:
 
 Production use requires license, content, provenance and safety review.
 
+## Google Gemma 4 31B IT — multimodal flood-rescue reasoning
+
+Gemma 4 31B IT is integrated as the high-capacity multimodal reasoning layer for image + text flood-scene interpretation. The official Hugging Face model card supports the Transformers image-text-to-text pipeline and direct AutoProcessor/AutoModelForMultimodalLM loading; vLLM serving is also supported. The model repository is about 62.6 GB, so weights are downloaded at runtime rather than committed to Git.
+
+Uses:
+- victim and person-at-risk verification
+- flood scene and spatial-context reasoning
+- debris, route and occlusion analysis
+- thermal/NIR/depth/LiDAR cross-check interpretation
+- active-perception recommendations
+- rescue-plan cross-checking before candidate actions
+
+Recommended flow:
+
+RGB / thermal / NIR / depth / LiDAR -> perception + tracking -> 3D semantic world state -> Gemma 4 31B IT -> structured rescue decision -> action/VLA candidate -> deterministic safety gate
+
+Gemma is advisory only. It does not directly control motors, navigation actuators or rescue mechanisms. Unseen or occluded people remain unknown, and uncertain model output falls back to re-observation and human review.
+
 ## NVIDIA GR00T N1.7 3B — embodied robot policy
 
 GR00T N1.7 3B is integrated as an action-policy candidate for embodied learning. It belongs after perception/reasoning and before the deterministic safety layer.
