@@ -261,35 +261,120 @@ Foundation and generative models are advisory components. They are never the fin
 
 ## Local Deployment
 
+**Status: Local development / prototype deployment.** Physical deployment must remain behind deterministic safety controls and authorized robot interfaces.
+
 ### Requirements
 
 - Python 3.x
+- Git
 - PyTorch and project dependencies
-- ROS2/Nav2/MoveIt2 for physical robot integration
-- RGB/RGB-D/thermal/LiDAR hardware as available
-- Optional GPU for accelerated inference
-- Isaac Sim/Gazebo for simulation and validation
+- ROS 2/Nav2/MoveIt 2 for optional physical integration
+- RGB/RGB-D/thermal/NIR/LiDAR/IMU hardware as configured
+- Optional NVIDIA GPU
+- Optional Isaac Sim, Isaac Lab or Gazebo
 
-### Installation
+### Clone and Install
 
 ```bash
 git clone https://github.com/Pui89/flood-rescue-ai-robot.git
 cd flood-rescue-ai-robot
 python -m venv .venv
 source .venv/bin/activate
-pip install -U pip
-pip install -e .
+# Windows PowerShell:
+# .venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e .
 ```
 
-### Run
+### Validate the Environment
 
 ```bash
-python scripts/run_demo.py --source 0 --display
+python --version
+python -m pip check
 pytest tests/test_tracker.py -q
 ```
 
-For physical deployment, start with simulation or recorded data, validate perception and safety behavior, and only then connect authorized robot interfaces.
+Run the full test suite when available:
 
+```bash
+pytest -q
+```
+
+### Run the Local Demo
+
+Webcam:
+
+```bash
+python scripts/run_demo.py --source 0 --display
+```
+
+RTSP:
+
+```bash
+python scripts/run_demo.py --source "rtsp://username:password@ip:554/stream"
+```
+
+Start with recorded or simulated data when validating new sensors, models or deployment configurations.
+
+### Recommended Deployment Sequence
+
+```text
+Recorded / Simulated Data
+        |
+Environment + Dependency Validation
+        |
+Sensor Calibration + Time Synchronization
+        |
+Perception + Tracking
+        |
+3D Semantic World Model
+        |
+Multimodal Evidence + Reasoning
+        |
+Uncertainty / OOD Assessment
+        |
+Human Review / Mission Policy
+        |
+Deterministic Safety Gate
+        |
+ROS 2 / Nav2 / MoveIt 2
+        |
+Authorized Robot Interface
+        |
+Action Verification + Audit Log
+```
+
+### Sensor Deployment Checklist
+
+Record sensor model/configuration, resolution, frame rate, FOV/range, intrinsic/extrinsic calibration, timestamp synchronization, preprocessing/model versions, sensor-health state, missing modalities, mission identifier, evidence provenance, reviewer decision and outcome.
+
+Missing, degraded or contradictory modalities should preserve uncertainty or `UNKNOWN` rather than forcing a confident rescue classification.
+
+### ROS 2 / Robotics Integration Boundary
+
+```text
+Sensors -> Perception -> 3D/4D World Model -> Reasoning
+                                                   |
+                                                   v
+                                             Human Review
+                                                   |
+LiDAR + Depth + IMU -> SLAM -> Planner -> Safety Gate -> ROS 2
+```
+
+Foundation, generative and action models must not directly command motors, propulsion, manipulators or other actuators. Deterministic collision checks, exclusion zones, sensor-health checks, force/torque limits and emergency-stop behavior remain authoritative.
+
+### Troubleshooting
+
+- **Install fails:** verify Python and project packaging/dependencies.
+- **Tests fail:** fix the local environment before physical deployment.
+- **Camera/RTSP fails:** check permissions, stream URL, network access and OpenCV backend.
+- **Sensor data is missing/unsynchronized:** stop and correct calibration/time synchronization.
+- **ROS 2 unavailable:** use recorded data or simulation.
+- **Low confidence or modality disagreement:** retain uncertainty and escalate to human review.
+
+### Development Principle
+
+Validate recorded/simulated data first, then perception, uncertainty and safety behavior, and only then connect hardware incrementally. No unvalidated foundation-model output may bypass the deterministic safety layer or directly actuate the robot.
 ## Full 2K-Workflow
 
 **2K is a target high-resolution workflow, not a guaranteed camera specification.**
