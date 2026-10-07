@@ -11,7 +11,10 @@ perception:
     open_vocabulary: true
 vision_reasoning:
   primary_model: Qwen3-VL
-  secondary_model: Gemma4-E4B-it
+  secondary_model: google/gemma-4-31B-it
+  fallback_model: Gemma4-E4B-it
+  model_runtime: transformers_or_vllm
+  model_task: image-text-to-text
   tasks: [scene_reasoning, video_reasoning, spatial_reasoning, occlusion_analysis, unknown_object_analysis, multimodal_cross_check]
   never_direct_motor_control: true
 world_model:
