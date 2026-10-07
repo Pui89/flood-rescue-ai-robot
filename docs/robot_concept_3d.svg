@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#071421"/><stop offset="1" stop-color="#16364a"/></linearGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#123f5b"/><stop offset="1" stop-color="#0b7185"/></linearGradient>
+  <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9e5eb"/><stop offset=".5" stop-color="#718897"/><stop offset="1" stop-color="#263744"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9ff7ff"/><stop offset=".5" stop-color="#167f9a"/><stop offset="1" stop-color="#062b43"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="18"/></filter>
+  <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1600" height="1000" fill="url(#sky)"/>
+<circle cx="1320" cy="160" r="110" fill="#b9f7ff" opacity=".16"/>
+<path d="M0 650 Q300 590 600 650 T1200 640 T1600 650 V1000 H0Z" fill="url(#water)"/>
+<g opacity=".25" fill="none" stroke="#a6f4ff" stroke-width="3">
+ <path d="M0 730 Q250 680 500 730 T1000 730 T1500 730 T1800 730"/>
+ <path d="M0 820 Q300 770 600 820 T1200 820 T1800 820"/>
+ <path d="M0 910 Q250 860 500 910 T1000 910 T1500 910 T1800 910"/>
+</g>
+<!-- rescue buoy -->
+<ellipse cx="270" cy="735" rx="180" ry="45" fill="#06141e" opacity=".55" filter="url(#shadow)"/>
+<circle cx="270" cy="650" r="72" fill="none" stroke="#ff6b35" stroke-width="34"/>
+<circle cx="270" cy="650" r="35" fill="#f3f8fa"/>
+<!-- robot shadow -->
+<ellipse cx="910" cy="790" rx="500" ry="90" fill="#04131c" opacity=".65" filter="url(#shadow)"/>
+<!-- rear mast -->
+<path d="M920 355 L980 260 L1035 355" fill="none" stroke="#a7bac5" stroke-width="18"/>
+<rect x="965" y="210" width="55" height="75" rx="12" fill="#263944" stroke="#c7d6dc" stroke-width="5"/>
+<circle cx="992" cy="238" r="14" fill="#8ffaff" filter="url(#glow)"/>
+<!-- antenna -->
+<path d="M995 210 L995 145" stroke="#c7d6dc" stroke-width="8"/>
+<circle cx="995" cy="135" r="12" fill="#ffcc55" filter="url(#glow)"/>
+<!-- robot main chassis 3D -->
+<path d="M560 510 L760 400 L1215 475 L1320 625 L1095 745 L625 690 Z" fill="#1b2a34" stroke="#d6e1e6" stroke-width="8"/>
+<path d="M560 510 L760 400 L1215 475 L1010 600 L560 510Z" fill="url(#body)" stroke="#e8f2f5" stroke-width="7"/>
+<path d="M1010 600 L1215 475 L1320 625 L1095 745 L1010 600Z" fill="#435866" stroke="#aebec7" stroke-width="6"/>
+<!-- front sensor head -->
+<path d="M760 400 L850 315 L1080 350 L1130 470 L1010 600 L790 545 Z" fill="#243743" stroke="#dce8ed" stroke-width="7"/>
+<path d="M820 365 L1035 390 L1080 455 L1010 515 L820 485 Z" fill="url(#glass)" stroke="#8feaf2" stroke-width="7"/>
+<circle cx="920" cy="435" r="32" fill="#041c2c" stroke="#9efbff" stroke-width="8"/>
+<circle cx="920" cy="435" r="10" fill="#ffffff" filter="url(#glow)"/>
+<rect x="790" y="510" width="200" height="24" rx="12" fill="#67e8f9" opacity=".8" filter="url(#glow)"/>
+<!-- side rescue arm -->
+<path d="M1145 555 L1285 535 L1390 610" fill="none" stroke="#b8c8cf" stroke-width="34" stroke-linecap="round"/>
+<circle cx="1285" cy="535" r="26" fill="#2a3d49" stroke="#e5eff3" stroke-width="6"/>
+<path d="M1380 600 l75 25 -38 35 -70 -25z" fill="#e8f0f3" stroke="#526b78" stroke-width="6"/>
+<!-- flotation pods -->
+<path d="M620 690 Q720 760 850 770" fill="none" stroke="#ff7b38" stroke-width="42" stroke-linecap="round"/>
+<path d="M1080 735 Q1200 745 1280 680" fill="none" stroke="#ff7b38" stroke-width="42" stroke-linecap="round"/>
+<!-- thrusters -->
+<g fill="#182933" stroke="#b8ccd5" stroke-width="5">
+ <circle cx="700" cy="735" r="48"/><circle cx="1170" cy="760" r="48"/>
+</g>
+<g fill="#79f5ff" opacity=".75" filter="url(#glow)">
+ <path d="M680 770 l-65 100 85 -75 25 90 20 -120z"/>
+ <path d="M1150 795 l-55 100 78 -78 25 85 18 -120z"/>
+</g>
+<!-- thermal/LiDAR sensor arcs -->
+<g fill="none" stroke="#78f4ff" stroke-width="4" opacity=".75">
+ <path d="M905 270 Q760 160 620 270"/><path d="M1040 285 Q1190 160 1340 285"/>
+ <path d="M865 305 Q760 230 660 305"/>
+</g>
+<!-- callouts -->
+<g font-family="Arial, sans-serif" fill="#eafcff">
+ <text x="90" y="105" font-size="44" font-weight="700">FLOOD RESCUE AI ROBOT</text>
+ <text x="92" y="150" font-size="22" fill="#8debf4">3D CONCEPT • AUTONOMOUS SEARCH • VICTIM DETECTION • SAFE NAVIGATION</text>
+ <g font-size="24">
+  <text x="1230" y="310">LiDAR + RGB-D</text><line x1="1200" y1="320" x2="1050" y2="370" stroke="#8debf4" stroke-width="3"/>
+  <text x="1260" y="420">Thermal / NIR</text><line x1="1230" y1="430" x2="1080" y2="440" stroke="#8debf4" stroke-width="3"/>
+  <text x="1250" y="850">Rescue Manipulator</text><line x1="1240" y1="830" x2="1370" y2="640" stroke="#8debf4" stroke-width="3"/>
+  <text x="390" y="870">Amphibious Flotation + Thrusters</text><line x1="600" y1="850" x2="720" y2="760" stroke="#8debf4" stroke-width="3"/>
+ </g>
+ <rect x="75" y="905" width="1450" height="55" rx="27" fill="#071a26" stroke="#5cdde8" stroke-width="2"/>
+ <text x="105" y="940" font-size="20">AI stack: YOLO • SAM 3 • Qwen3-VL • Gemma 4 • V-JEPA2 • ROS 2/Nav2 • deterministic safety gate</text>
+</g>
+</svg>
