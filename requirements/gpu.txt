@@ -1,0 +1,4 @@
+-r base.txt
+# Install the CUDA-compatible PyTorch build appropriate for the target GPU
+# from the official PyTorch installation selector rather than pinning a
+# hardware-specific wheel in this repository.
