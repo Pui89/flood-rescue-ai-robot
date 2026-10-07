@@ -18,10 +18,13 @@ class RescueReasoningDecision:
     requires_human_review: bool = False
 
 
-class FloodRescueReasoner:
-    """Adapter boundary for Qwen3-VL or another multimodal reasoning model."""
+DEFAULT_REASONING_MODEL = "google/gemma-4-31B-it"
 
-    def __init__(self, model: str = "Qwen3-VL", infer: Optional[Callable[[Dict[str, Any]], Dict[str, Any]]] = None):
+
+class FloodRescueReasoner:
+    """Adapter boundary for Gemma 4 31B IT, Qwen3-VL, or another multimodal reasoning model."""
+
+    def __init__(self, model: str = DEFAULT_REASONING_MODEL, infer: Optional[Callable[[Dict[str, Any]], Dict[str, Any]]] = None):
         self.model = model
         self.infer = infer
 
