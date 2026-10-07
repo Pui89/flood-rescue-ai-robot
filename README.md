@@ -133,6 +133,23 @@ The concept shows the flood-response robot operating in a dynamic disaster scene
 
 See the full architecture and mission flow in [docs/PIPELINE_OVERVIEW.md](docs/PIPELINE_OVERVIEW.md).
 
+
+## Research, competition and commercialization
+
+This project is being developed on three parallel tracks:
+
+- **Real-world rescue robotics:** rugged mobility, multimodal sensing, GNSS-denied navigation, rescue payloads, degraded-mode operation and deterministic safety.
+- **World-class competition:** a complete end-to-end mission demonstration with quantified victim localization, dynamic hazard avoidance, recovery, energy and operator-intervention metrics.
+- **PhD research:** a proposed **Trustworthy 4D Rescue World Model (T4D-RWM)** connecting multimodal perception, temporal prediction, uncertainty/OOD, active perception and risk-aware action. See [PhD research program](docs/PHd_RESEARCH_PROGRAM.md).
+
+See also:
+- [Competition & product plan](docs/COMPETITION_AND_PRODUCT_PLAN.md)
+- [Research dataset specification](docs/RESEARCH_DATASET_SPEC.md)
+- [Cybersecurity policy](SECURITY.md)
+- [3D/4D world model implementation](flood_robot/world_model.py)
+
+The project should not be judged by the number of AI models integrated. The key engineering target is **measurable end-to-end rescue performance under uncertainty and failure**.
+
 ## News
 
 - Project updates, perception and embodied-AI integrations, simulation assets, safety changes, and evaluation milestones are tracked through Git history and project documentation.
