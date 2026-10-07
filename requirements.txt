@@ -232,3 +232,7 @@ MIT
 ## Contact
 
 For project collaboration or extension ideas, open an issue in the repository or contact the project owner.
+
+# Gemma 4 31B IT multimodal reasoning
+transformers>=4.57.0
+accelerate>=1.10.0
