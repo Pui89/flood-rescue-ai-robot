@@ -1,5 +1,10 @@
 reasoning:
-  model: Qwen3-VL
+  model: google/gemma-4-31B-it
+  model_family: gemma4
+  runtime: transformers
+  alternative_model: Qwen3-VL
+  multimodal: true
+  source_url: https://huggingface.co/google/gemma-4-31B-it
   role: high_level_rescue_reasoning
   tasks:
     - scene_understanding
