@@ -92,3 +92,21 @@ pytest tests/test_tracker.py -q
 ## License
 
 MIT
+
+
+## 3D / 4D Realistic Flood Rescue Robot Concept
+
+![Realistic 3D/4D Flood Rescue Robot](docs/flood_rescue_robot_3d_4d_concept.svg)
+
+The concept shows the flood-response robot operating in a dynamic disaster scene with RGB-D/LiDAR perception, thermal sensing, victim tracking, an articulated rescue arm, and a time-aware 4D trajectory.
+
+- [3D/4D concept image](docs/flood_rescue_robot_3d_4d_concept.svg)
+- [3D/4D video preview](docs/flood_rescue_robot_3d_4d_preview.mp4)
+
+## Pipeline Overview
+
+**Sense → Perceive → Localize → Reason → Plan → Safety Gate → Navigate → Rescue → Verify → Report**
+
+![Pipeline overview](docs/flood_rescue_robot_3d_4d_concept.svg)
+
+See the full architecture and mission flow in [docs/PIPELINE_OVERVIEW.md](docs/PIPELINE_OVERVIEW.md).
