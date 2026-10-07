@@ -89,11 +89,6 @@ Run the smoke test:
 pytest tests/test_tracker.py -q
 ```
 
-## License
-
-MIT
-
-
 ## 3D / 4D Realistic Flood Rescue Robot Concept
 
 ![Realistic 3D/4D Flood Rescue Robot](docs/flood_rescue_robot_3d_4d_concept.svg)
@@ -110,3 +105,253 @@ The concept shows the flood-response robot operating in a dynamic disaster scene
 ![Pipeline overview](docs/flood_rescue_robot_3d_4d_concept.svg)
 
 See the full architecture and mission flow in [docs/PIPELINE_OVERVIEW.md](docs/PIPELINE_OVERVIEW.md).
+
+## News
+
+- Project updates, perception and embodied-AI integrations, simulation assets, safety changes, and evaluation milestones are tracked through Git history and project documentation.
+- New capabilities are labeled by implementation status and are not presented as validated field performance unless measured results are available.
+
+## Online API
+
+**Status: Prototype / planned.**
+
+A future service layer can expose perception, victim/obstacle localization, hazard mapping, route planning, rescue-plan proposals, telemetry, and safety-state inspection without allowing foundation models to directly control actuators.
+
+Example request:
+
+```json
+{
+  "request_id": "example-001",
+  "modalities": ["rgb", "depth", "thermal", "lidar"],
+  "mode": "rescue_assessment",
+  "mission_id": "flood-01"
+}
+```
+
+Example response:
+
+```json
+{
+  "request_id": "example-001",
+  "decision": "HUMAN_REVIEW",
+  "victim_candidates": [],
+  "hazards": [],
+  "confidence": 0.0,
+  "uncertainty": 0.0,
+  "safety_gate": "NOT_EXECUTED",
+  "evidence_provenance": {}
+}
+```
+
+These are interface examples only, not measured performance. A production API should authenticate requests, validate schemas, preserve evidence provenance, and keep reasoning separate from deterministic control and emergency-stop paths.
+
+## Online App
+
+**Status: Prototype / planned.**
+
+The planned web application can provide:
+
+- live RGB/RGB-D/thermal/LiDAR sensor health
+- synchronized flood-scene and robot views
+- victim and hazard candidate visualization
+- 3D semantic map and 4D trajectory view
+- route/rescue-plan inspection
+- uncertainty, occlusion, and sensor-health indicators
+- robot telemetry and mission state
+- safety-gate and emergency-stop state
+- human review/approval workflow
+- evidence provenance and audit history
+
+The app is intended for monitoring and human oversight; it must not provide unrestricted AI-to-motor control.
+
+## System Overview
+
+```text
+RGB / RGB-D / Thermal / NIR / LiDAR / IMU
+                  |
+          Sensor Synchronization
+                  |
+        Quality + Health Gate
+                  |
+   Detection + Segmentation + Tracking
+                  |
+       3D Semantic World Model
+                  |
+     Victim / Hazard Assessment
+                  |
+      Multimodal Scene Reasoning
+                  |
+       Temporal / 4D Prediction
+                  |
+       Route + Rescue Planning
+                  |
+        Uncertainty / OOD Checks
+                  |
+       HUMAN REVIEW / POLICY
+                  |
+       Deterministic Safety Gate
+                  |
+        ROS 2 / Nav2 / MoveIt 2
+                  |
+             Robot + Tools
+                  |
+       Action Verification + Report
+```
+
+The architecture intentionally separates multimodal reasoning from authoritative robot control.
+
+## Model Variants and Input Specifications
+
+| Variant | Input | Primary role | Status |
+|---|---|---|---|
+| RGB perception | RGB image/video | Person, vehicle, debris, structure detection | Prototype |
+| RGB-D | RGB + aligned depth | 3D localization and geometry | Prototype |
+| Thermal | Thermal image/video | Low-light and heat-signature evidence | Prototype |
+| NIR | NIR image/video | Low-visibility complementary evidence | Planned |
+| LiDAR | Point cloud | Mapping, obstacle geometry, free space | Prototype |
+| Multimodal | RGB-D + thermal + LiDAR + optional NIR | Evidence fusion | Prototype |
+| Temporal / 4D | Sequential multimodal observations | Tracking, motion and future-state estimation | Prototype |
+| Open-set / anomaly | Multimodal features | Unknown/degraded-scene handling | Planned |
+| Qwen3-VL | Image + text/evidence metadata | High-level multimodal rescue reasoning | Prototype |
+| Gemma 4 31B IT | Image + text/evidence metadata | High-capacity reasoning and cross-checking | Prototype |
+| VLA candidates | Vision/state/action context | Future embodied-action research | Planned |
+
+Actual camera resolution, depth range, LiDAR density/FOV, thermal/NIR bands, FPS, calibration, synchronization and preprocessing depend on deployed hardware. Dataset and sensor provenance should be recorded for reproducibility.
+
+## Model Architecture
+
+The system is organized into six functional layers:
+
+1. **Perception** — detection, segmentation, tracking, depth estimation and sensor-quality checks.
+2. **Spatial intelligence** — RGB-D/LiDAR fusion, 3D semantic mapping, terrain and obstacle geometry.
+3. **Temporal intelligence** — target-state estimation, tracking continuity and 4D future-state prediction.
+4. **Multimodal reasoning** — Qwen3-VL/Gemma reasoning over grounded observations and metadata.
+5. **Planning** — navigation, reachability, collision-aware rescue planning and task sequencing.
+6. **Safety/control** — deterministic validation followed by ROS2/Nav2/MoveIt2 execution and verification.
+
+```text
+Sensors
+  -> Perception
+  -> 3D/4D World Model
+  -> Multimodal Reasoning
+  -> Plan Proposal
+  -> Uncertainty/OOD Checks
+  -> Deterministic Safety Gate
+  -> ROS2/Nav2/MoveIt2
+  -> Robot
+  -> Verify + Log
+```
+
+Foundation and generative models are advisory components. They are never the final authority for actuation.
+
+## Recommended Workflow
+
+1. Calibrate RGB, depth, thermal/NIR and LiDAR sensors.
+2. Verify timestamps, extrinsics, synchronization and sensor health.
+3. Acquire flood-scene observations and reject degraded inputs when necessary.
+4. Detect and track victims, obstacles, vehicles, structures and debris.
+5. Fuse depth/LiDAR into a 3D semantic world model.
+6. Track relevant targets and hazards over time.
+7. Generate a route/rescue-plan proposal using deterministic planners plus approved AI reasoning.
+8. Check uncertainty, missing modalities, occlusion, reachability, collision risk and exclusion zones.
+9. Escalate ambiguous or high-risk situations to human review.
+10. Run the deterministic safety gate and emergency-stop checks.
+11. Execute only through validated ROS2/Nav2/MoveIt2 interfaces.
+12. Verify the outcome and record telemetry, evidence provenance, failures and recovery actions.
+
+## Local Deployment
+
+### Requirements
+
+- Python 3.x
+- PyTorch and project dependencies
+- ROS2/Nav2/MoveIt2 for physical robot integration
+- RGB/RGB-D/thermal/LiDAR hardware as available
+- Optional GPU for accelerated inference
+- Isaac Sim/Gazebo for simulation and validation
+
+### Installation
+
+```bash
+git clone https://github.com/Pui89/flood-rescue-ai-robot.git
+cd flood-rescue-ai-robot
+python -m venv .venv
+source .venv/bin/activate
+pip install -U pip
+pip install -e .
+```
+
+### Run
+
+```bash
+python scripts/run_demo.py --source 0 --display
+pytest tests/test_tracker.py -q
+```
+
+For physical deployment, start with simulation or recorded data, validate perception and safety behavior, and only then connect authorized robot interfaces.
+
+## Full 2K-Workflow
+
+**2K is a target high-resolution workflow, not a guaranteed camera specification.**
+
+```text
+2K RGB acquisition
+      -> quality + synchronization checks
+      -> resize/crop/preprocess
+      -> person/victim/hazard detection
+      -> segmentation + tracking
+      -> thermal/NIR/depth/LiDAR alignment
+      -> 3D semantic fusion
+      -> 4D target/hazard-state tracking
+      -> multimodal reasoning
+      -> uncertainty / OOD assessment
+      -> route + rescue-plan proposal
+      -> deterministic safety gate
+      -> human review / authorized execution
+      -> action verification
+      -> provenance + telemetry + audit log
+```
+
+Actual throughput and latency depend on camera, GPU/CPU, memory, preprocessing, model size, sensor synchronization and deployment configuration.
+
+## Prompting Guidance
+
+Foundation models should act as evidence-grounded reasoning assistants, not unrestricted robot controllers.
+
+Recommended prompt structure:
+
+```text
+ROLE:
+Flood-rescue evidence and planning assistant.
+
+INPUT:
+Only supplied RGB/RGB-D/thermal/NIR/LiDAR observations,
+robot state, target metadata and explicit safety constraints.
+
+TASK:
+1. Summarize observable evidence.
+2. Identify victim/hazard candidates and missing or degraded modalities.
+3. Report contradictions, occlusion and uncertainty.
+4. Propose a high-level rescue/navigation plan.
+5. Preserve UNKNOWN when evidence is insufficient.
+6. Recommend HUMAN_REVIEW when risk or uncertainty is high.
+
+CONSTRAINTS:
+Do not invent observations.
+Do not inflate confidence.
+Do not bypass deterministic safety rules.
+Do not issue unrestricted motor commands.
+Do not execute outside the validated control layer.
+```
+
+Gemma, Qwen and other foundation models remain subordinate to deterministic safety logic and authorized robot-control policy.
+
+## License
+
+MIT. See the repository license for the applicable terms. Third-party models, datasets, simulators, SDKs and checkpoints may have separate licenses and usage restrictions.
+
+## Contact Us
+
+GitHub: [Pui89/flood-rescue-ai-robot](https://github.com/Pui89/flood-rescue-ai-robot)
+
+Use GitHub Issues and Discussions for technical questions, collaboration, bug reports, feature requests, and research/engineering feedback.
