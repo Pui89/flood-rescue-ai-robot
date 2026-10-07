@@ -2,8 +2,15 @@
 version: 2
 perception:
   detector:
-    framework: yolo
-    confidence_threshold: 0.50
+    framework: ultralytics-yolo26
+    model_repo: Ultralytics/YOLO26
+    weights: yolo26n.pt
+    task: detect
+    confidence_threshold: 0.35
+    image_size: 640
+    runtime: ultralytics + huggingface_hub
+    role: fast_flood_victim_and_hazard_visual_proposals
+    direct_motor_control: false
     classes: [person, child, animal, boat, vehicle, debris, floating_object, obstacle, robot]
   segmentation:
     model: sam3
