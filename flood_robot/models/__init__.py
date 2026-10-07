@@ -55,3 +55,8 @@ class DepthEstimator(nn.Module):
         decoded = self.decoder(features)
         depth = self.depth_head(decoded)
         return torch.clamp(depth, 0.0, 1.0)
+
+
+from .gemma4_reasoner import Gemma4FloodReasoner
+
+__all__ = ["Gemma4FloodReasoner"]
