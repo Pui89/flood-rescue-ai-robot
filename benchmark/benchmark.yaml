@@ -1,0 +1,12 @@
+domain: disaster_response
+mission: autonomous_flood_reconnaissance_and_rescue_support
+primary_metrics:
+  perception: [object_f1, person_candidate_recall, hazard_f1]
+  world_model: [localization_error_cm, map_consistency]
+  navigation: [waypoint_success_rate, obstacle_avoidance_rate]
+  risk: [risk_calibration, unknown_abstention_precision]
+  operations: [mapped_area_per_hour, energy_per_hour_wh]
+  communications: [link_loss_mission_continuity, recovery_time_s]
+  safety: [unsafe_route_rejection, emergency_stop_success]
+scenarios: [normal_daylight, low_light, rain, occlusion, sensor_dropout, calibration_error, ood, communication_loss, low_battery]
+unknown_policy: preserve_uncertainty_and_switch_to_validated_degraded_mode
