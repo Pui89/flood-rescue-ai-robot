@@ -59,6 +59,9 @@ See:
 - [Commercial open-source integration plan](docs/OPEN_SOURCE_COMMERCIAL_STACK.md) — DINOv2, Anomalib, Open3D, ROS 2 Nav2, ONNX Runtime, nvblox, optional Visual SLAM, licensing gates, and staged integration.
 - [Optional stack manifest](config/open_source_stack.yaml) — optional backends remain disabled until adapters, license review, and validation pass.
 - [Commercial readiness checklist](docs/COMMERCIAL_READINESS_CHECKLIST.md) — software supply chain, sensor/robot validation, safety, benchmark evidence, and commercial operations.
+- [Commercial implementation plan](docs/COMMERCIAL_IMPLEMENTATION_PLAN.md) — Jetson Orin/AGX Orin deployment, component/license shortlist, repository implementation map, integration order, release gates, and product packaging.
+- [Integration and fault-injection test plan](docs/INTEGRATION_TEST_PLAN.md) — proposed unit, adapter, replay, fault-injection, HIL, and release-gate tests.
+- [Flood Recon v1 benchmark protocol](benchmarks/flood_recon_v1.yaml) — benchmark metadata, scenarios, metrics, and acceptance policy; protocol only, not measured results.
 
 These additions define the integration plan and configuration intent; they do **not** claim every listed package has been installed or integrated into the live robot. Validate each adapter on target hardware before enabling it.
 
