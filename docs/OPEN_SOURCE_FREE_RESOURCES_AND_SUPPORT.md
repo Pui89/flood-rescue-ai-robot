@@ -105,6 +105,45 @@ Contact safety: do not send passwords, API keys, bank credentials or unnecessary
 9. Keep software, model and dataset license records, including any commercial-use restrictions.
 10. Before real deployment, conduct project-specific safety, privacy, legal and operational reviews.
 
+## Existing PUI89 systems, programs, tools and model names
+
+This inventory records names already present in the repository's dependency files and configuration/documentation. It is **not** a claim that the packages are installed on the owner's computer, that model weights have been downloaded, that hardware is connected, or that every integration has passed tests. Check the listed manifests and integration guides before calling an item active.
+
+### Shared development and engineering systems
+- **Language/runtime:** Python 3.10+ is declared in the project metadata; Git/GitHub for version control.
+- **AI frameworks:** PyTorch, Hugging Face Transformers, Accelerate, Hugging Face Hub, and Ultralytics are declared dependencies in the flood-rescue and coconut-harvest projects. The screening project's current pyproject.toml declares no runtime dependencies.
+- **Testing/code quality:** pytest is used by project test configuration; pytest-cov and Ruff are declared as development extras in repositories where listed.
+- **Perception/3D:** OpenCV is a declared dependency in Flood Rescue; Open3D is named for point-cloud/world-model processing in project configurations. DINOv2 and Anomalib have optional integration guides.
+- **Robotics stack:** ROS 2, Nav2, MoveIt 2 and OMPL RRT* are named in the robotics project configurations. NVIDIA Isaac Sim and Isaac Lab are named as simulation/learning targets. These require separate installation and environment/hardware compatibility checks.
+- **CI/security/evaluation:** GitHub Actions workflows, benchmark documentation and automated test suites are present in the repositories. A workflow/configuration file does not by itself prove every job has passed or every benchmark has been run.
+
+### Model names already recorded in project configurations
+- **Vision detection/segmentation:** Ultralytics YOLO26 (yolo26n.pt configured in the robotics repositories), SAM3.
+- **Vision-language reasoning:** Qwen3-VL, google/gemma-4-31B-it, Gemma4-E4B-it.
+- **Vision representation/anomaly:** DINOv2, Anomalib.
+- **Temporal/world modeling:** V-JEPA2, VLA-JEPA.
+- **Action-model candidates:** SmolVLA, pi0, pi0.5, X-VLA, OpenVLA, NVIDIA GR00T N1.7 3B, FLUX-3-Action-Base.
+- **Synthetic-data/generative simulation candidates:** LTX-2.5-Diffusers, MiniMax-H3-Turbo-LoRA.
+- **Model sources and runtime notes:** model IDs and candidate roles are recorded in each project's config/ and docs/ files. Weights are not bundled in GitHub; some models may have gated access, hardware requirements, license restrictions, or version-specific API differences.
+
+### What “already have” means in this inventory
+1. **In GitHub:** the model/tool name appears in source code, dependency metadata, configuration, or documentation.
+2. **Declared dependency:** package is listed for installation, but installation on your personal computer is not verified here.
+3. **Configured model ID/weight name:** repository specifies what to load, but this does not prove the weights are downloaded or inference works.
+4. **Tested integration:** claim only after a reproducible test has run and its result is recorded.
+5. **Physical hardware available:** claim only after the hardware is actually obtained and its setup is confirmed.
+
+For current local availability, run the project's documented install/check/test commands on your computer and record the outputs. Do not commit API keys, access tokens or private credentials.
+
+### Flood Rescue AI Robot
+- **Declared Python dependencies:** PyTorch, NumPy, OpenCV (headless), imageio, Matplotlib, Pillow, Hugging Face Transformers, Accelerate, Ultralytics, Hugging Face Hub; development extras include pytest, pytest-cov and Ruff.
+- **Configured perception models:** Ultralytics YOLO26 (yolo26n.pt configured), SAM3 segmentation/tracking.
+- **Configured/referenced reasoning and world models:** Qwen3-VL, google/gemma-4-31B-it, Gemma4-E4B-it, V-JEPA2 / VLA-JEPA.
+- **Optional vision integration:** DINOv2 and Anomalib.
+- **Configured/candidate action models:** LeRobot, SmolVLA, pi0, pi0.5, X-VLA, VLA-JEPA, NVIDIA GR00T N1.7 3B and FLUX-3-Action-Base.
+- **Robotics/simulation named in configuration:** ROS 2, Nav2, MoveIt 2, OMPL RRT*, Open3D, NVIDIA Isaac Sim and Isaac Lab; Gazebo/Webots are additional suggested simulation options in the resource guide.
+- **Generative simulation candidates:** LTX-2.5-Diffusers and MiniMax-H3-Turbo-LoRA.
+
 ## 7. 2026–2028 development and support plan
 
 - **2026 — foundation:** simulation-first proof of concept on available computer; establish software tests, reproducible benchmark protocols, raw-result storage, risk documentation and public demonstrations. Apply only to relevant programs that are open and for which eligibility can be established.
