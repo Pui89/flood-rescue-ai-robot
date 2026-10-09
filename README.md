@@ -165,6 +165,19 @@ pip install -U pip
 pip install -e .
 ```
 
+## End-to-End Software Demo (Simulation-First)
+
+Run the new safety-gated sensor-hypothesis pipeline with synthetic inputs:
+
+```bash
+python demo_end_to_end.py
+python -m pytest tests/test_end_to_end.py -q
+```
+
+Details: [End-to-End Simulation Baseline](docs/END_TO_END_SIMULATION.md). This prototype checks input quality and timestamp alignment, aggregates supplied victim/hazard hypotheses, blocks proposals without an externally verified collision check, requires human approval, and never sends actuator commands. Synthetic hypotheses are not validated detections; the external collision-check flag is not itself a collision checker.
+
+Existing grid-mission vertical slice: [E2E Mission Verification](docs/E2E_MISSION_VERIFICATION.md).
+
 ## Usage
 
 Run the live real-time demo from a webcam:
