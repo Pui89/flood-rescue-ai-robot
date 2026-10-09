@@ -54,6 +54,14 @@ See:
 - [Research, Competition and Commercial Evidence](docs/PUI89_RESEARCH_COMPETITION_INVESTOR.md)
 - [12-Month Roadmap](docs/PUI89_12_MONTH_ROADMAP.md)
 
+### Commercial open-source stack and release readiness
+
+- [Commercial open-source integration plan](docs/OPEN_SOURCE_COMMERCIAL_STACK.md) — DINOv2, Anomalib, Open3D, ROS 2 Nav2, ONNX Runtime, nvblox, optional Visual SLAM, licensing gates, and staged integration.
+- [Optional stack manifest](config/open_source_stack.yaml) — optional backends remain disabled until adapters, license review, and validation pass.
+- [Commercial readiness checklist](docs/COMMERCIAL_READINESS_CHECKLIST.md) — software supply chain, sensor/robot validation, safety, benchmark evidence, and commercial operations.
+
+These additions define the integration plan and configuration intent; they do **not** claim every listed package has been installed or integrated into the live robot. Validate each adapter on target hardware before enabling it.
+
 A safety-aware multimodal perception and robotics platform for flood rescue operations. The repository combines depth estimation, multi-object tracking, spatial hazard extraction, embodied AI, multimodal reasoning, world modeling and safety-aware robot action planning.
 
 ## Overview
