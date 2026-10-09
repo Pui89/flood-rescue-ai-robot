@@ -178,3 +178,77 @@ Start with one depth/stereo camera or RGB camera, one compute board, a safe low-
 
 ### Suggested measurable evidence
 Mapping error, localization error, navigation completion rate, obstacle-detection precision/recall, mission completion time, communication-loss response and emergency-stop behavior. Publish conditions and raw results; do not claim field readiness from simulation alone.
+
+
+## Official funding, compute, hardware and research-support routes
+
+This section is a starting point for checking support opportunities. A link is not evidence that a call is open, that this project is eligible, or that funding, credits, equipment or a partnership has been awarded. Verify the current official program page and written eligibility before applying.
+
+### 1. Thailand funding and innovation-grant leads
+
+Check the official pages for current calls:
+
+- **Thailand National Innovation Agency (NIA) — financial support:** https://www.nia.or.th/service/financial-support
+- **depa Thailand — startup information:** https://www.depa.or.th/th/startup
+- **depa Thailand — funding programs:** https://depa.or.th/th/funds
+- **Thailand research funding portal (NRCT):** https://www.nrct.go.th/
+
+Ask each agency:
+1. Which currently open call best fits this project?
+2. Can an individual applicant apply, or is a Thai-registered company or university partner required?
+3. Which prototype costs are eligible (for example, compute, sensors, software services, testing, travel or staff)?
+4. What are the deadline, matching-fund rules, disbursement schedule, reporting obligations and IP conditions?
+
+Prepare a short proposal covering the problem, beneficiaries, measurable milestones, budget, project ownership, research/commercialization plan, risks and specific support requested. Do not claim a partner, award, prototype result or company-registration status unless it is true.
+
+### 2. Compute and startup support
+
+- **NVIDIA Inception:** https://www.nvidia.com/en-us/startups/
+- **AWS Startups / AWS Activate:** https://aws.amazon.com/startups/
+- **Google for Startups Cloud Program:** https://cloud.google.com/startup/
+- **Hugging Face GPU/community grant information:** https://github.com/huggingface/skills/blob/main/skills/huggingface-spaces/references/grants.md
+- **Hugging Face Hub and Spaces:** https://huggingface.co/
+
+These may provide ecosystem benefits, cloud credits, technical support or competitive compute opportunities, subject to the current program terms. Membership does not guarantee a GPU, cash grant, cloud credits or physical equipment. Before relying on credits, verify amount, expiry, supported regions, billing requirements, eligible services and payment-method requirements. Set budget alerts and usage limits where available. Check model, dataset and hosting licenses.
+
+### 3. Hardware and research-support leads
+
+These are routes to ask about evaluation kits, research collaboration, discounts, loans or eligible programs—not confirmed donations:
+
+- **AMD University Program:** https://www.amd.com/en/corporate/university-program.html
+- **Seeed Studio Academic Support:** https://academic.seeed.cc/
+- **Stereolabs:** https://www.stereolabs.com/
+- **Qualcomm AI Program for Innovators (APAC):** https://www.qualcomm.com/ai-program-for-innovators/apac
+- **Open Robotics / ROS community contact:** https://www.openrobotics.org/contact
+
+For each request, state the exact project and experiment, requested specifications and quantity, timeline, shipping country (Thailand), whether a loan is acceptable, how results will be shared, and how loaned equipment will be returned. Prefer a loan or evaluation unit with a written return plan before requesting a permanent donation. Confirm each program's current eligibility and application window.
+
+### 4. Contact guidance — verify before sending
+
+Previously identified possible email routes include `aup@amd.com`, `bp@seeed.cc`, `seeed_apac@seeed.cc`, `support@stereolabs.com` and `cloudstartupsupport@google.com`. These addresses are **unverified in this document** and may be outdated or unsuitable for a particular request. Verify them on the official pages above; if not confirmed there, use the official application/contact form. For NIA, depa, Qualcomm, NVIDIA, AWS and Hugging Face, use the current official program pages and their listed contact/application steps.
+
+Do not email passwords, API keys, bank credentials or unnecessary identity documents. Do not pay an unverified intermediary to unlock a grant. Track the program, official URL, date contacted, requested support, eligibility checked, response, restrictions and next action. Clearly identify whether this is an individual research project, a registered business or a university collaboration; never imply a status that is not true.
+
+### 5. Simulation-first workflow and reproducible evidence
+
+1. Record the operating system, available computer hardware, tool versions and setup instructions.
+2. Build the first prototype in simulation using Gazebo or Webots before buying hardware.
+3. Add automated tests and record commands, random seeds, configurations and dependency versions.
+4. Publish benchmark protocols with metrics, test conditions, raw results, failure cases and known limitations.
+5. Label results as **simulation**, **laboratory** or **real-world**; never present simulation-only results as field-proven.
+6. Prepare a short demo and a one-page support request linked to reproducible evidence.
+7. Check current eligibility, deadlines and terms before applying.
+8. Maintain a support ledger with program, URL, application date, requested support, eligibility, status, restrictions and follow-up date.
+9. Keep software, model, dataset and hardware-SDK license records, including commercial-use restrictions.
+10. Before deployment, conduct project-specific safety, privacy, legal and operational reviews with qualified people.
+
+### 6. Planning horizon: 2026–2028
+
+- **2026:** simulation-first prototype, baseline tests, reproducible benchmarks, documentation and initial applications for eligible compute or evaluation support.
+- **2027:** seek research partners, validate in controlled laboratory settings and request hardware loans only for experiments with clear test protocols.
+- **2028:** consider commercialization and deployment only after evidence, safety, privacy, licensing and legal requirements have been reviewed.
+
+No funding, hardware, university partner or external validation is implied by this roadmap. Update this section whenever official program terms or project status changes.
+
+
+**Project-specific application angle:** emphasize flood reconnaissance and mapping, simulation-based navigation, localization/mapping accuracy, obstacle detection, communication-loss behavior and emergency-stop testing. Do not test in floodwater until the system has passed appropriate electrical, ingress-protection, communications and operational safety reviews.
