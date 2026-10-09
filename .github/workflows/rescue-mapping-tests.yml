@@ -1,0 +1,30 @@
+name: Rescue mapping baseline tests
+
+on:
+  push:
+    paths:
+      - 'simulation/rescue_mapping/**'
+      - 'tests/rescue_mapping/**'
+      - '.github/workflows/rescue-mapping-tests.yml'
+  pull_request:
+    paths:
+      - 'simulation/rescue_mapping/**'
+      - 'tests/rescue_mapping/**'
+      - '.github/workflows/rescue-mapping-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run unit tests
+        run: python -m unittest discover -s tests/rescue_mapping -v
+      - name: Verify deterministic output
+        run: |
+          python -m simulation.rescue_mapping.demo --output /tmp/rescue-map-a.json
+          python -m simulation.rescue_mapping.demo --output /tmp/rescue-map-b.json
+          cmp /tmp/rescue-map-a.json /tmp/rescue-map-b.json
