@@ -11,7 +11,6 @@ import importlib.util
 import os
 import shutil
 import subprocess
-import sys
 
 
 def command_check(label: str, command: list[str]) -> bool:
