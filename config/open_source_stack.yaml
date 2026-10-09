@@ -1,0 +1,92 @@
+# PUI89 Flood Rescue optional component manifest.
+# This file documents intended integrations; it does not install packages or enable
+# physical robot control. Keep optional backends disabled until adapter tests pass.
+schema_version: 1
+
+policy:
+  ai_actuator_direct_control: false
+  require_sensor_health_gate: true
+  require_unknown_state_for_stale_or_missing_data: true
+  require_deterministic_safety_gate: true
+  require_audit_events: true
+  require_license_review_before_distribution: true
+  simulation_first_for_navigation_changes: true
+
+perception:
+  primary_detector:
+    enabled: true
+    role: task_specific_detection
+    commercial_license_review_required: true
+    note: "Review Ultralytics YOLO AGPL-3.0 vs commercial licensing before proprietary distribution."
+  dinov2:
+    enabled: false
+    repository: "https://github.com/facebookresearch/dinov2"
+    role: visual_embeddings_and_downstream_features
+    adapter_required: true
+    checkpoint_license_review_required: true
+  anomalib:
+    enabled: false
+    repository: "https://github.com/open-edge-platform/anomalib"
+    role: anomaly_score_channel
+    adapter_required: true
+    calibrated_threshold_required: true
+    may_replace_victim_detector: false
+
+spatial:
+  open3d:
+    enabled: false
+    repository: "https://github.com/isl-org/Open3D"
+    role: point_cloud_processing_and_geometry
+    adapter_required: true
+  nvblox:
+    enabled: false
+    repository: "https://github.com/nvidia-isaac/nvblox"
+    role: optional_gpu_mapping_backend
+    hardware_compatibility_review_required: true
+    license_review_required: true
+  isaac_ros_visual_slam:
+    enabled: false
+    repository: "https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_visual_slam"
+    role: optional_visual_inertial_localization
+    hardware_compatibility_review_required: true
+    license_review_required: true
+
+navigation:
+  ros2_nav2:
+    enabled: false
+    repository: "https://github.com/ros-navigation/navigation2"
+    role: navigation_and_recovery
+    simulation_tests_required: true
+    hardware_in_loop_tests_required: true
+    independent_estop_required: true
+    collision_monitor_required: true
+
+inference:
+  onnx_runtime:
+    enabled: false
+    repository: "https://github.com/microsoft/onnxruntime"
+    role: optional_portable_inference
+    parity_tests_required: true
+    target_hardware_benchmark_required: true
+    rollback_path_required: true
+
+operations:
+  fleet_registry: planned
+  authenticated_robot_identity: required_before_networked_deployment
+  signed_artifacts_and_updates: required_before_networked_deployment
+  secret_redaction_in_logs: required
+  audit_log: append_only_design_required
+  offline_store_and_forward: planned
+  sbom_and_dependency_lock: required_before_release
+
+release_gates:
+  - license_and_redistribution_review
+  - unit_and_integration_tests
+  - model_parity_and_regression_tests
+  - simulation_scenarios
+  - fault_injection
+  - hardware_in_loop
+  - emergency_stop_and_fail_safe_validation
+  - security_review
+  - operator_acceptance
+  - controlled_field_trial
