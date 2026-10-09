@@ -1,0 +1,88 @@
+schema_version: 1
+benchmark_id: pui89-flood-recon-v1
+status: protocol_only_not_measured_results
+product: supervised_autonomous_flood_reconnaissance_and_hazard_mapping
+hardware_profiles:
+  - jetson_orin_family
+  - jetson_agx_orin
+required_run_metadata:
+  - experiment_id
+  - dataset_version
+  - git_commit
+  - config_sha256
+  - model_checkpoint_hashes
+  - hardware_sku
+  - ram_gb
+  - carrier_board
+  - jetpack_l4t_version
+  - cuda_tensorrt_onnx_versions
+  - sensor_bom
+  - calibration_ids
+  - scenario_id
+  - operator_id
+  - start_time_utc
+  - end_time_utc
+scenarios:
+  nominal_daylight:
+    description: "Dry, controlled route; normal illumination; no autonomous floodwater entry."
+  low_light:
+    description: "Reduced illumination with ground truth and operator supervision."
+  wet_reflection_glare:
+    description: "Wet surfaces and specular reflections; water-edge labels remain uncertain when unsupported."
+  partial_occlusion:
+    description: "Person/object partly occluded by debris or structure."
+  sensor_dropout:
+    description: "Drop each modality independently and in selected combinations."
+  timestamp_skew:
+    description: "Inject clock offset, stale frames and reordered observations."
+  localization_degradation:
+    description: "Reduce/interrupt localization input in a controlled test environment."
+  compute_pressure:
+    description: "Sustained concurrent inference and mapping with resource telemetry."
+  network_loss:
+    description: "Disconnect external network; local safety and logging remain available."
+  unknown_environment:
+    description: "Unseen scene or conflicting evidence; unknown area is not marked as free space."
+metrics:
+  perception:
+    - person_precision
+    - person_recall
+    - hazard_precision
+    - hazard_recall
+    - false_alerts_per_hour
+    - per_condition_metrics
+  spatial:
+    - median_3d_localization_error_m
+    - p95_3d_localization_error_m
+    - map_completeness_fraction
+    - unknown_area_fraction
+    - coordinate_frame_validity
+  runtime:
+    - end_to_end_latency_p50_ms
+    - end_to_end_latency_p95_ms
+    - processed_fps
+    - dropped_frames
+    - stale_frames_rejected
+    - peak_ram_mb
+    - peak_gpu_memory_mb
+    - board_power_w
+    - max_cpu_temperature_c
+    - max_gpu_temperature_c
+    - thermal_throttle_events
+  resilience:
+    - sensor_fault_detection_time_ms
+    - recovery_time_s
+    - pipeline_restart_success
+    - local_operation_during_network_loss
+  safety:
+    - stale_data_hold_pass
+    - invalid_command_rejection_pass
+    - localization_loss_hold_pass
+    - estop_independent_path_pass
+    - unknown_space_not_free_pass
+acceptance_policy:
+  numerical_targets: "Set only after baseline measurement and documented hazard/risk review."
+  safety_tests: "All defined critical safety tests must pass; do not average failures against accuracy."
+  reproducibility: "Same dataset/config/software should produce comparable results; retain raw logs and failure artifacts."
+  report_simulation_lab_hil_field_separately: true
+  no_unmeasured_claims: true
