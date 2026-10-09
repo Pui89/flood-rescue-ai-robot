@@ -557,3 +557,20 @@ MIT. See the repository license for the applicable terms. Third-party models, da
 GitHub: [Pui89/flood-rescue-ai-robot](https://github.com/Pui89/flood-rescue-ai-robot)
 
 Use GitHub Issues and Discussions for technical questions, collaboration, bug reports, feature requests, and research/engineering feedback.
+
+
+## Project website
+
+The PUI89 Flood Recon project website introduces the product scope, system architecture, benchmark protocol, engineering roadmap, safety boundaries, and third-party licensing policy.
+
+- Website entry point: [index.html](index.html)
+- [Architecture diagram](docs/architecture.svg)
+- [Benchmark protocol](docs/benchmark-protocol.md)
+- [Engineering roadmap](docs/roadmap.md)
+- [Safety and operating boundaries](docs/safety.md)
+- [Third-party licensing policy](docs/third-party-licenses.md)
+- [Website deployment instructions](docs/website-deployment.md)
+
+The GitHub Pages workflow is at [\.github/workflows/pages.yml](.github/workflows/pages.yml). After merging the website to `main`, set **Settings → Pages → Source** to **GitHub Actions**. The expected project URL is https://pui89.github.io/flood-rescue-ai-robot/ after a successful deployment.
+
+The site describes a research prototype; it does not claim measured benchmark results, safety certification, or readiness for real floodwater operations.

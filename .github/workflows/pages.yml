@@ -1,0 +1,55 @@
+name: Deploy project website to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "index.html"
+      - "docs/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate required website files
+        run: |
+          test -s index.html
+          test -s docs/architecture.svg
+          test -s docs/benchmark-protocol.md
+          test -s docs/roadmap.md
+          test -s docs/safety.md
+          test -s docs/third-party-licenses.md
+          grep -q '<html' index.html
+          grep -q '<svg' docs/architecture.svg
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
