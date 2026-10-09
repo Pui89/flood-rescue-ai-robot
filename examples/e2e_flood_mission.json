@@ -1,0 +1,29 @@
+{
+  "mission_id": "demo-flood-001",
+  "sensor_health": {
+    "rgb": true,
+    "depth": true,
+    "lidar": true,
+    "imu": true
+  },
+  "grid": [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 0, 1, 1, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 1, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+  ],
+  "start": [0, 0],
+  "goal": [6, 6],
+  "hazard_cells": [[2, 2]],
+  "detections": [
+    {
+      "class_name": "person_candidate",
+      "confidence": 0.87,
+      "source": "synthetic_test_input"
+    }
+  ],
+  "emergency_stop": false
+}
