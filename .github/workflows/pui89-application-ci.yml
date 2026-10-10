@@ -1,0 +1,27 @@
+name: PUI89 application CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  application-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install application dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r apps/pui89_app/requirements.txt
+      - name: Compile Python files
+        run: python -m compileall -q apps/pui89_app benchmarks
+      - name: Run application tests
+        run: python -m unittest discover -s apps/pui89_app -p 'test_*.py' -v
+      - name: Check benchmark validator
+        run: python benchmarks/validate_results.py --self-test
