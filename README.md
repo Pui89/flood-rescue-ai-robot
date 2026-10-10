@@ -26,7 +26,7 @@ The end-to-end demo and tests are intended for local development with the projec
 
 **Workflow:** sensor/data quality checks → perception and multimodal evidence → 3D/temporal scene representation → uncertainty and unknown-case handling → reviewable plan or screening proposal → audit record.
 
-**Documentation:** [End-to-end mission guide](docs/E2E_MISSION.md) · [Simulation directory](simulation/)
+**Documentation:** [End-to-end simulation guide](docs/END_TO_END_SIMULATION.md) · [Simulation directory](simulation/)
 
 **Animation status:** An animated GIF demo is not included in this README yet. Add one only after a reproducible simulation/demo recording has been generated and checked; concept artwork must not be presented as a working animation.
 
