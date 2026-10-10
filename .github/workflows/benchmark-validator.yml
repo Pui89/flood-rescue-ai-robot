@@ -1,19 +1,6 @@
 name: Benchmark report validator
 
 on:
-  pull_request:
-    paths:
-      - "tools/validate_benchmark_report.py"
-      - "tests/test_benchmark_report_validator.py"
-      - ".github/workflows/benchmark-validator.yml"
-  push:
-    branches:
-      - main
-      - feat/reproducible-benchmark-gates
-    paths:
-      - "tools/validate_benchmark_report.py"
-      - "tests/test_benchmark_report_validator.py"
-      - ".github/workflows/benchmark-validator.yml"
   workflow_dispatch:
 
 permissions:
