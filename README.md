@@ -1,4 +1,34 @@
-# Flood Rescue AI Robot
+# Flood Rescue AI Application
+
+
+## AI Application Overview
+
+AI application concept for flood reconnaissance and rescue support, combining multimodal sensing, hazard mapping, uncertainty-aware planning, and human-supervised mission proposals.
+
+![3D/4D concept visualization](docs/flood_rescue_robot_3d_4d_concept.svg)
+
+> **Status and evidence:** This repository documents a research/prototype workflow. The illustration is concept artwork, not a live demonstration or proof of field performance. Reported capability and performance must be supported by reproducible tests and benchmark results.
+
+### Quick start
+
+Clone the renamed repository and install the project dependencies:
+
+```bash
+git clone https://github.com/Pui89/Flood-Rescue-AI.git
+cd Flood-Rescue-AI
+python -m pip install --upgrade pip
+python -m pip install -e .
+python demo_end_to_end.py
+pytest -q
+```
+
+The end-to-end demo and tests are intended for local development with the project's documented inputs. Start with synthetic or recorded data; do not connect the prototype directly to physical actuators or use it as the sole basis for consequential decisions.
+
+**Workflow:** sensor/data quality checks → perception and multimodal evidence → 3D/temporal scene representation → uncertainty and unknown-case handling → reviewable plan or screening proposal → audit record.
+
+**Documentation:** [End-to-end mission guide](docs/E2E_MISSION.md) · [Simulation directory](simulation/)
+
+**Animation status:** An animated GIF demo is not included in this README yet. Add one only after a reproducible simulation/demo recording has been generated and checked; concept artwork must not be presented as a working animation.
 
 
 ## PUI89 AI Robotics Platform
@@ -158,8 +188,8 @@ See docs/EMBODIED_AI_STACK.md, docs/ADVANCED_MODEL_INTEGRATION.md, config/ai_sta
 ## Installation
 
 ```bash
-git clone https://github.com/Pui89/flood-rescue-ai-robot.git
-cd flood-rescue-ai-robot
+git clone https://github.com/Pui89/Flood-Rescue-AI.git
+cd Flood-Rescue-AI
 python -m venv .venv
 source .venv/bin/activate
 pip install -U pip
@@ -407,8 +437,8 @@ Foundation and generative models are advisory components. They are never the fin
 ### Clone and Install
 
 ```bash
-git clone https://github.com/Pui89/flood-rescue-ai-robot.git
-cd flood-rescue-ai-robot
+git clone https://github.com/Pui89/Flood-Rescue-AI.git
+cd Flood-Rescue-AI
 python -m venv .venv
 source .venv/bin/activate
 # Windows PowerShell:
@@ -568,7 +598,7 @@ MIT. See the repository license for the applicable terms. Third-party models, da
 
 ## Contact Us
 
-GitHub: [Pui89/flood-rescue-ai-robot](https://github.com/Pui89/flood-rescue-ai-robot)
+GitHub: [Pui89/flood-rescue-ai-robot](https://github.com/Pui89/Flood-Rescue-AI)
 
 Use GitHub Issues and Discussions for technical questions, collaboration, bug reports, feature requests, and research/engineering feedback.
 
