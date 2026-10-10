@@ -57,6 +57,7 @@ See:
 - [MLOps Model Lifecycle](docs/PUI89_MLOPS_MODEL_LIFECYCLE.md)
 - [Research, Competition and Commercial Evidence](docs/PUI89_RESEARCH_COMPETITION_INVESTOR.md)
 - [12-Month Roadmap](docs/PUI89_12_MONTH_ROADMAP.md)
+- [Cost Safety and Billing Policy](docs/COST_SAFETY_AND_BILLING.md)
 
 ### Commercial open-source stack and release readiness
 
