@@ -3,6 +3,12 @@
 
 ## AI Application Overview
 
+### Animated Concept Preview
+
+![Flood Rescue AI animated concept demo](https://raw.githubusercontent.com/Pui89/Flood-Rescue-AI/main/docs/images/flood-rescue-ai-demo.svg)
+
+*Animated SVG concept preview. This illustrates a proposed workflow only; it is not a recorded 4D video, a live sensor feed, or evidence of validated real-world performance.*
+
 AI application concept for flood reconnaissance and rescue support, combining multimodal sensing, hazard mapping, uncertainty-aware planning, and human-supervised mission proposals.
 
 ![3D/4D concept visualization](docs/flood_rescue_robot_3d_4d_concept.svg)
