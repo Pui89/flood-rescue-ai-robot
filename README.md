@@ -593,3 +593,9 @@ The site describes a research prototype; it does not claim measured benchmark re
 ## Free tools, funding and hardware support
 
 See [Free and Open-Source Resources, Funding, Compute and Hardware Support](docs/OPEN_SOURCE_FREE_RESOURCES_AND_SUPPORT.md) for open-source tools, eligible grant and cloud-credit routes, potential hardware-loan contacts, project-specific priorities, and 2026–2028 planning. Support is competitive and subject to each program's current eligibility and terms; no funding or hardware is guaranteed.
+
+## Flood Rescue AI — 4D concept artwork
+
+![Flood Rescue AI 4D AI concept](docs/images/flood-rescue-ai-4d-concept.svg)
+
+*Concept artwork only. The visual describes a proposed spatio-temporal AI workflow; it is not evidence of a built robot, measured benchmark performance, or deployment readiness.*
